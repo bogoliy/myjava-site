@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.0">
+<database-model author="" begin-script="" end-script="" id="1c039d1:128b02600ab:-8000" name="dbModel" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
+<schema-list>
+<schema id="1c039d1:128b02600ab:-7ffd" name="DEFAULT_SCHEMA">
+<table-list>
+<table id="1c039d1:128b02600ab:-7fff" name="User">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7ffa" mandatory="true" name="us_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="128" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7ff9" mandatory="true" name="us_name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="32" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7ff8" mandatory="true" name="us_login">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="256" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7ff7" mandatory="true" name="us_password">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="1c039d1:128b02600ab:-7ffe" name="PK_USER">
+<primary-key-column name="us_id"/>
+</primary-key>
+</table>
+<table id="1c039d1:128b02600ab:-7fee" name="Article">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7fea" mandatory="true" name="ar_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="512" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7fe9" mandatory="true" name="ar_title">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7fe8" mandatory="true" name="ar_filename">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7fe7" mandatory="true" name="us_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7f1f" mandatory="false" name="ar_date">
+<data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
+</column>
+</column-list>
+<primary-key id="1c039d1:128b02600ab:-7fed" name="PK_ARTICLE">
+<primary-key-column name="ar_id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="1c039d1:128b02600ab:-7f89" name="FK_Article_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USER" referenced-table="User" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="us_id" referenced-key-column-name="us_id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="1c039d1:128b02600ab:-7f68" name="Opinion">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7f64" mandatory="true" name="op_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="1024" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7f63" mandatory="true" name="op_text">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7f62" mandatory="true" name="us_id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1c039d1:128b02600ab:-7f1a" mandatory="false" name="op_date">
+<data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
+</column>
+</column-list>
+<primary-key id="1c039d1:128b02600ab:-7f67" name="PK_OPINION">
+<primary-key-column name="op_id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="1c039d1:128b02600ab:-7f3f" name="FK_Opinion_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USER" referenced-table="User" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="us_id" referenced-key-column-name="us_id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure refid="1c039d1:128b02600ab:-7fff" x="209" y="222"/>
+<table-figure refid="1c039d1:128b02600ab:-7fee" x="625" y="117"/>
+<table-figure refid="1c039d1:128b02600ab:-7f68" x="613" y="358"/>
+</diagram>
+</clay-model>

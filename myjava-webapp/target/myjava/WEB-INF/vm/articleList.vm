@@ -1,0 +1,2 @@
+#foreach  ($article in $articles)
+#end
