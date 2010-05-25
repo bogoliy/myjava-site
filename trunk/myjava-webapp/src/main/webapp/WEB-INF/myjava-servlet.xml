@@ -25,6 +25,7 @@
 		<property name="prefix" value="" />
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="contentType" value="text/html; charset=utf-8"></property>
 	</bean>
 
 

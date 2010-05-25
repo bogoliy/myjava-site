@@ -13,6 +13,17 @@ import ua.com.myjava.persist.ArticleDAO;
 
 public class ArticleListController implements Controller {
 	ArticleDAO articleDAO;
+	
+
+	public ArticleDAO getArticleDAO() {
+		return articleDAO;
+	}
+
+
+	public void setArticleDAO(ArticleDAO articleDAO) {
+		this.articleDAO = articleDAO;
+	}
+
 
 	public ModelAndView handleRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {

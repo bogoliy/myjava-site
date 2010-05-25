@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 @javax.persistence.TableGenerator(name = "ART_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "ARTICLE")
 @Entity
 public class Article {
-	@Id
+	@Id 
 	@Column(name = "ar_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "ART_GEN")
 	private int id;
