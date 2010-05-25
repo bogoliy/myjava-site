@@ -1,6 +1,7 @@
 package ua.com.myjava.persist;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,20 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ua.com.myjava.model.Article;
 
+
+
 public class ArticleDAO extends HibernateDaoSupport {
 
 	private ua.com.myjava.article.ArticleService articleService;
+
+	public ua.com.myjava.article.ArticleService getArticleService() {
+		return articleService;
+	}
+
+	public void setArticleService(
+			ua.com.myjava.article.ArticleService articleService) {
+		this.articleService = articleService;
+	}
 
 	public ArticleDAO() {
 	}

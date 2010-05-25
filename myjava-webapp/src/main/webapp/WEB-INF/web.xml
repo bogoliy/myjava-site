@@ -32,4 +32,27 @@
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- Jetty not lock -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.mortbay.jetty.servlet.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>useFileMappedBuffer</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<!-- Language -->
+	<filter>
+		<filter-name>selectLanguageFilter</filter-name>
+		<filter-class>ua.com.myjava.webapp.filters.SelectLanguageFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>selectLanguageFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 </web-app>
