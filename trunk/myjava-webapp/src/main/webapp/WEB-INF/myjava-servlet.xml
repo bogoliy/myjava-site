@@ -10,6 +10,9 @@
 				<entry key="/articleList.htm">
 					<ref bean="articleListController" />
 				</entry>
+				<entry key="/rss.htm">
+					<ref bean="articleRssController" />
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -32,6 +35,10 @@
 	<!-- Controllers -->
 
 	<bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
+		<property name="articleDAO" ref="articleDAO" />
+	</bean>
+	
+	<bean id="articleRssController" class="ua.com.myjava.webapp.controllers.ArticleRssController">
 		<property name="articleDAO" ref="articleDAO" />
 	</bean>
 </beans>

@@ -29,6 +29,9 @@ public class Article {
 	@Column(name = "ar_text")
 	private String text;
 
+	private String author;
+	private String link;
+		
 	public String getText() {
 		return text;
 	}
@@ -58,6 +61,18 @@ public class Article {
 
 	public String getFilename() {
 		return filename;
+	}
+	
+	public String getLink() {
+		return "http://localhost:8080/index.htm";
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	public String getAuthor() {
+		return "Author";
 	}
 
 	public void setFilename(String filename) {
