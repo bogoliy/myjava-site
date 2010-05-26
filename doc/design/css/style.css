@@ -1,0 +1,68 @@
+/*
+ Обнулить отсутпы страницы и содержимого
+ */
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: gray;
+}
+
+/*
+ главное содердиммое - отсупы справа и слева
+ */
+.content {
+    width: 900px;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid 1px rgb(150, 150, 150);
+    font-size: 1.0em;
+    background-color: white;
+}
+
+.topContent {
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+    height: 80px;
+    border-bottom: solid;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+}
+
+.mainContent {
+    height: 100px;
+}
+
+.bottomContent {
+    height: 20px;
+    border-top: solid;
+    border-top-color: black;
+    border-top-width: 2px;
+}
+
+.bottomContent p {
+    padding-top: 3px;
+    font-family: Verdana, serif;
+    text-align: center;
+    font-size: x-small;
+    color: #6a9dea;
+}
+
+.article {
+    margin: 0 20px 0 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    color: #4F4939;
+    padding-bottom: 20px;
+}
+
+.article h1 {
+    font-weight: normal;
+    font-size: 36px;
+    margin: 0 25px 0 25px;
+    letter-spacing: -1px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+

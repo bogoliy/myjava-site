@@ -4,10 +4,9 @@
       <string>currentBuild</string>
       <path-set>
         <pathsSet class="linked-hash-set">
-          <string>index.jsp</string>
-          <string>WEB-INF/web.xml</string>
           <string>WEB-INF/vm/articleList.vm</string>
           <string>WEB-INF/myjava-servlet.xml</string>
+          <string>WEB-INF/web.xml</string>
           <string>css/search.css</string>
           <string>css/bl.gif</string>
           <string>css/style2.css</string>
@@ -16,6 +15,7 @@
           <string>css/tr.gif</string>
           <string>css/tl.gif</string>
           <string>css/br.gif</string>
+          <string>index.jsp</string>
           <string>WEB-INF/classes/ua/com/myjava/webapp/filters/SelectLanguageFilter.class</string>
           <string>WEB-INF/classes/ua/com/myjava/webapp/controllers/ArticleListController.class</string>
           <string>WEB-INF/lib/myjava-model-0.0.1-SNAPSHOT.jar</string>
