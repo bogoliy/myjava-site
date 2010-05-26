@@ -31,8 +31,7 @@
 		<servlet-name>myjava</servlet-name>
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
-
-
+		
 	<!-- Jetty not lock -->
 	<servlet>
 		<servlet-name>default</servlet-name>
