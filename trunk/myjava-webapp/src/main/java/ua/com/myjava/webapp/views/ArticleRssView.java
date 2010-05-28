@@ -23,6 +23,11 @@ public class ArticleRssView extends AbstractView {
 	/**
      * Default constructor
      */
+	
+	private static final String DEFAULT_FEED_TYPE = "atom_0.3";
+	private static final String FEED_TYPE = "type";
+	private static final String ARTICLE_COLLECTION = "articles";
+	
     public ArticleRssView() {
     	setContentType("application/xml; charset=UTF-8");
 	}
@@ -34,13 +39,16 @@ public class ArticleRssView extends AbstractView {
     	String baseUrl = "http://"+ request.getServerName() +":"+ request.getServerPort() +
     		request.getContextPath() + "/";
     	
-    	List<Article> articles = (List)model.get("articles");
+    	List<Article> articles = (List)model.get(ARTICLE_COLLECTION);
     	SyndFeed feed = buildFeed(articles,baseUrl);
-        
-    	response.setContentType(getContentType());
+    	String feedType = request.getParameter(FEED_TYPE);
+        feedType = (feedType!=null) ? feedType : DEFAULT_FEED_TYPE;
+        feed.setFeedType(feedType);
+		
+        response.setContentType(getContentType());
         SyndFeedOutput output = new SyndFeedOutput();
         output.output(feed,response.getWriter());
-	}
+    }
 	
 	/**
 	 * Creates a list with entries from the provided list of articles
@@ -53,15 +61,15 @@ public class ArticleRssView extends AbstractView {
 		List<SyndEntry> entries = new ArrayList<SyndEntry>();
 		Date publishDate = new Date(System.currentTimeMillis());
 		
-		feed.setTitle("article.feed.title");
-		feed.setDescription("article.feed.text");
+		feed.setTitle("LAST WEEK ARTICLES");
+		feed.setDescription("Here present articles dedicated to the Java EE " +
+				"site development process");
+		feed.setLanguage("en-us" );
 		feed.setLink(contextPath);
 		feed.setPublishedDate(publishDate);
-		feed.setLanguage("en-us" );
-		feed.setFeedType("rss_2.0"); 
 					
 		for (Article article : articles) {
-			entries.add(buildEntry(article));
+			entries.add(buildEntry(article,contextPath));
 		}
 		
 		feed.setEntries(entries);
@@ -74,12 +82,14 @@ public class ArticleRssView extends AbstractView {
 	 * @param link
 	 * @return the new create entry
 	 */
-	private SyndEntry buildEntry (Article article) {
+	private SyndEntry buildEntry (Article article, String contextPath) {
 		SyndEntry entry = new SyndEntryImpl();
 		
 		entry.setTitle(article.getTitle());
 		entry.setPublishedDate(article.getDate());
-		entry.setLink(article.getLink());
+		
+		String entryLink = contextPath + "articles.htm?id=" + article.getId();
+		entry.setLink(entryLink);
 		
 		SyndContent description = new SyndContentImpl();
 		description.setType("text/plain");
