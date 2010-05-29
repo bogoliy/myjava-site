@@ -10,6 +10,9 @@
 				<entry key="/articleList.htm">
 					<ref bean="articleListController" />
 				</entry>
+				<entry key="/article.htm">
+					<ref bean="articleController" />
+				</entry>
 				<entry key="/rss.htm">
 					<ref bean="articleRssController" />
 				</entry>
@@ -22,9 +25,10 @@
 		<property name="resourceLoaderPath" value="/WEB-INF/vm/" />
 	</bean>
 
-	<bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
-		<bean name="rss" class="ua.com.myjava.webapp.views.ArticleRssView"/>
-		
+	<bean id="beanNameResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	<bean name="rss" class="ua.com.myjava.webapp.views.ArticleRssView" />
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="cache" value="true" />
@@ -33,13 +37,18 @@
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="contentType" value="text/html; charset=utf-8"></property>
 	</bean>
-		
+
 	<!-- Controllers -->
 
 	<bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
 		<property name="articleDAO" ref="articleDAO" />
 	</bean>
-	
+
+	<bean id="articleController" class="ua.com.myjava.webapp.controllers.ArticleController">
+		<property name="articleDAO" ref="articleDAO" />
+		<property name="articleService" ref="articleService" />
+	</bean>
+
 	<bean id="articleRssController" class="ua.com.myjava.webapp.controllers.ArticleRssController">
 		<property name="articleDAO" ref="articleDAO" />
 	</bean>
