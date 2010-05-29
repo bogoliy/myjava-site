@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="stylesheet" TYPE="text/css" href="css/style.css">
+		<BASE HREF="/articles/">
         <script type="text/javascript" src="scripts/jquery.js">
         </script>
         <script type="text/javascript">
@@ -31,14 +32,30 @@
                 </div>
             </div>
             <div class="mainContent">
-                #foreach ($article in $articles) 
                 <div class="article">
                     <h1>${article.title}</h1>
                     <p> 
 						 ${article.text}
                     </p>
                 </div>
-                #end 
+                <div class="opinions">
+                    <div class="opinion">
+                        <h1>Bogoliy Sasha wrote: </h1>
+                        <div id="opinionText">
+                            <p>
+                                This is good article
+                            </p>
+                        </div>
+                    </div>
+                    <div class="opinion">
+                        <h1>Kuzmenko Denis wrote: </h1>
+                        <div id="opinionText">
+                            <p>
+                                Not bad
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="bottomContent">
                 Created by Bogoliy Sasha
