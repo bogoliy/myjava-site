@@ -1,1 +1,136 @@
-* {	margin: 0;	padding: 0;}body {	font-family: Georgia, "Times New Roman", Times, serif;	font-size: 12px;	color: #4F4939;	background: #FFF;	padding: 0 0 30px 0;}#topcont {	width: 80%;	height: 110px;}#topmenu {	margin: 0 auto;	width: 850px;	height: 46px;	font-size: 12px;}#label {	font-size: 12px;	color: black;	font: normal 100% sans-serif;	font-family: Geneva, Arial, Helvetica, sans-serif;}#topmenu ul {	float: right;	list-style-type: none;}#topmenu ul li {	display: inline;}#topmenu ul li a {	float: left;	padding: 0 20px;	line-height: 40px;	color: #CC9;	background: #FFF;	text-transform: lowercase;	text-decoration: none;}#topmenu ul li a:hover {	line-height: 46px;	color: #333;}#toptitle {	margin: 0 auto;	width: 850px;	height: 64px;}#toptitle h1 {	font-weight: normal;	font-size: 36px;	margin: 0 0 0 25px;	letter-spacing: -1px;	font-family: Georgia, "Times New Roman", Times, serif;}#maincont {	background: #FFFFFF none repeat scroll 0 0;	border-right: 1px solid grey;	line-height: 180%;	margin: 0 10px 0 10px;	padding: 25px 25px 25px 25px;	width: 750px;	float: left;}#edit {	width: 750px;}#login {	background: #FFFFFF none repeat scroll 0 0;	border: 1px solid gray;	color: grey;	font-family: Geneva, Arial, Helvetica, sans-serif;	font-size: 100%;	font-size-adjust: none;	font-stretch: normal;	font-style: normal;	font-variant: normal;	font-weight: bold;	height: 100px;	line-height: 180%;	margin: 0 0px;	padding: 25px;	width: 150px;	float: center;	position: relative;	margin: 200px auto;}#login input {	border: 1px solid grey;}#rightcont {	background: #FFFFFF none repeat scroll 0 0;	line-height: 180%;	margin: 0 10px 0 10px;	padding: 25px 25px 25px 25px;	width: 100px;	float: left;}#rightcont input {	border: 1px solid grey;}#maincont h1,h2,h3,h4,h5 {	font-weight: normal;	font-size: 24px;	margin: 0 0 15px 0;	font-family: Georgia, "Times New Roman", Times, serif;}#footercont {	clear: both;	margin: 0 auto;	width: 850px;	text-align: center;	color: #808060;	padding: 20px 0;	font-size: 11px;	font-family: Arial, Helvetica, sans-serif;}#footercont ul {	list-style-type: none;}#footercont ul li {	display: inline;	padding: 0 5px;}#footercont ul li a {	color: #808060;	text-decoration: none;}#footercont ul li a:hover {	color: #333;}
+/*
+ Обнулить отсутпы страницы и содержимого
+ */
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: gray;
+}
+
+/*
+ главное содердиммое - отсупы справа и слева
+ */
+.content {
+    width: 900px;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid 1px rgb(150, 150, 150);
+    font-size: 1.0em;
+    background-color: white;
+}
+
+.topContent {
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+    height: 80px;
+    border-bottom: solid;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    margin-top: 10px;
+}
+
+/*
+ Menu
+ */
+.menu {
+    float: right;
+    padding-right: 5px;
+    position: relative;
+    top: -10px;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0px 20px;
+}
+
+.menu ul li {
+    list-style: none;
+    margin-left: 5px;
+    display: inline;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+}
+
+.menu ul li a:hover {
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: #9c9d9d;
+}
+
+.mainContent {
+    margin-top: 20px;
+}
+
+.bottomContent {
+    height: 20px;
+    border-top: solid;
+    border-top-color: black;
+    border-top-width: 2px;
+    padding-top: 3px;
+    font-family: Verdana, serif;
+    text-align: center;
+    font-size: x-small;
+    color: grey;
+}
+
+.article {
+    margin: 0 20px 0 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    color: #4F4939;
+    padding-bottom: 20px;
+}
+
+.article h1 {
+    font-weight: normal;
+    font-size: 36px;
+    margin: 0 25px 0 25px;
+    letter-spacing: -1px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.opinions {
+    margin: 0 20px 0 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    color: #4F4939;
+    padding-bottom: 5px;
+}
+
+.opinions div:nth-child(odd) {
+	background-color: #f3f3f3;
+}
+
+.opinions div:nth-child(even) {
+	background-color: #f4f4f4;
+}
+
+.opinion {
+    padding-left: 5px;	
+	border-left-color: #f0f0f0;
+	border-left-width: 2px;
+	border-left: solid;
+}
+
+.opinion h1{
+  	font-weight: normal;
+    font-size: 12px;
+    font-family: "Arial", serif;
+	font-style: oblique;
+	cursor: pointer;
+}
+
+.collapsed {
+	color: #8d8f91;
+}
+
+
