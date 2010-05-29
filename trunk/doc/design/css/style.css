@@ -36,8 +36,9 @@ body {
  */
 .menu {
     float: right;
-    padding-top: 3px;
     padding-right: 5px;
+    position: relative;
+    top: -10px;
 }
 
 .menu ul {
@@ -80,7 +81,6 @@ body {
     font-size: x-small;
     color: grey;
 }
-
 
 .article {
     margin: 0 20px 0 20px;
@@ -126,6 +126,11 @@ body {
     font-size: 12px;
     font-family: "Arial", serif;
 	font-style: oblique;
+	cursor: pointer;
+}
+
+.collapsed {
+	color: #8d8f91;
 }
 
 

@@ -74,7 +74,6 @@ public class Article {
 
 	public User getUser() {
 		return user;
-		erew
 	}
 
 	public void setUser(User user) {

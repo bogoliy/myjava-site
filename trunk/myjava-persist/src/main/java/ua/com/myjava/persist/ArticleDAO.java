@@ -13,20 +13,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ua.com.myjava.model.Article;
 
-
-
 public class ArticleDAO extends HibernateDaoSupport {
-
-	private ua.com.myjava.article.ArticleService articleService;
-
-	public ua.com.myjava.article.ArticleService getArticleService() {
-		return articleService;
-	}
-
-	public void setArticleService(
-			ua.com.myjava.article.ArticleService articleService) {
-		this.articleService = articleService;
-	}
 
 	public ArticleDAO() {
 	}
@@ -36,9 +23,9 @@ public class ArticleDAO extends HibernateDaoSupport {
 	}
 
 	public Article load(Integer id) {
-		Article article = (Article) getHibernateTemplate().load(Article.class,
+
+		Article article = (Article) getHibernateTemplate().get(Article.class,
 				id);
-		article.setText(articleService.getArticle(article.getFilename()));
 
 		return article;
 	}

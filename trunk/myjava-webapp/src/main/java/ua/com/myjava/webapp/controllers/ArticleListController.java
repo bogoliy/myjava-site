@@ -29,5 +29,5 @@ public class ArticleListController implements Controller {
 			HttpServletResponse arg1) throws Exception {
 		List<Article> articles = articleDAO.getArticles();
 		return new ModelAndView("articleList", "articles", articles);
-	}
+	} 
 }
