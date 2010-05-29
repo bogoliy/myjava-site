@@ -39,7 +39,6 @@
 
 	<bean id="articleDAO" class="ua.com.myjava.persist.ArticleDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
-		<property name="articleService" ref="articleService" />
 	</bean>
 
 
