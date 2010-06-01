@@ -2,6 +2,7 @@ package ua.com.myjava.model;
 
 import java.util.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Article {
 	@Column(name = "ar_title")
 	private String title;
 
-	@Column(name = "ar_filename")
+	@Column(name = "ar_filename") 
 	private String filename;
 
 	@Column(name = "ar_date")

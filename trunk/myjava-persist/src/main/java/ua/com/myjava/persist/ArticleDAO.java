@@ -30,7 +30,7 @@ public class ArticleDAO extends HibernateDaoSupport {
 		return article;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") 
 	public List<Article> getArticles() {
 		return (List<Article>) getHibernateTemplate().execute(
 				new HibernateCallback() {
