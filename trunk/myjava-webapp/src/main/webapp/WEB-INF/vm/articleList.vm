@@ -31,14 +31,14 @@
                 </div>
             </div>
             <div class="mainContent">
-                #foreach ($article in $articles) 
-                <div class="article">
-                    <h1>${article.title}</h1>
-                    <p> 
-						 ${article.text}
-                    </p>
-                </div>
-                #end 
+                   	<div class="articleListTitle">#springMessage("availableArticles")</div>
+                	#foreach ($article in $articles) 
+                   		<ul class="articleList">
+                       		<li>
+                           		<a href="article.htm?id=${article.id}" target="_blank">${article.title}</a>
+                       		</li>
+                   		</ul>
+                	#end
             </div>
             <div class="bottomContent">
                 Created by Bogoliy Sasha
