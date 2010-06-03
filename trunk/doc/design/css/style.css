@@ -133,4 +133,49 @@ body {
 	color: #8d8f91;
 }
 
+.opinionForm {
+	margin: 0 20px 0 20px;
+	font-size: 100%;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+}
 
+
+.label {
+	font-size: 12px;
+	color: black;
+	font: bold 100% sans-serif;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+    color: #4F4939;
+}
+
+.submit {
+	background: #FFFFFF none repeat scroll 0 0;
+	border: 1px solid gray;
+	color: grey;
+}
+
+.input {
+	border: 1px solid gray;
+	background-repeat: no-repeat;
+}
+
+
+.articleListTitle {
+	margin: 0 20px 0 20px;
+	padding : 3px;
+	font-size: 120%;
+	border-bottom: 1px dotted #CCCCCC;
+}
+
+
+a:link, a:visited {
+	color:#4B4BC2;
+	text-decoration:none;
+}
+
+a:hover {
+	color:#CC0000;
+}
