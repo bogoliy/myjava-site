@@ -29,7 +29,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>myjava</servlet-name>
-		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.x</url-pattern>
 	</servlet-mapping>
 		
 	<!-- Jetty not lock -->

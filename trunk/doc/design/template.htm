@@ -13,21 +13,48 @@
                     return false;
                 });
             });
+            $(document).ready(function(){
+                $(".searchPanel table img").mouseover(function(){
+                    $(this).parent().removeClass();
+                    $(this).parent().addClass("bordered");
+                    return false;
+                });
+                $(".searchPanel table img").mouseout(function(){
+                    $(this).parent().removeClass();
+                    $(this).parent().addClass("notBordered");
+                    return false;
+                });
+            });
         </script>
         <title>MyJava - my experience</title>
     </head>
     <body>
         <div class="content">
             <div class="topContent">
-                <div class="menu">
-                    <ul>
-                        <li>
-                            <a href="">Home</a>
-                        </li>
-                        <li>
-                            <a href="">Articles</a>
-                        </li>
-                    </ul>
+                <div class="rightPanel">
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a href="">Home</a>
+                            </li>
+                            <li>
+                                <a href="">Articles</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="searchPanel">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="input" type=="text" name="serachString" id="searchString"/>
+                                    <div>
+                                </td>
+                                <td>
+                                    <img src="images/view.gif">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="mainContent">
@@ -40,7 +67,9 @@
                     </p>
                 </div>
                 <div>
-                	<div class="articleListTitle">Доступные статьи</div>
+                    <div class="articleListTitle">
+                        Доступные статьи
+                    </div>
                     <ul class="articleList">
                         <li>
                             <a href="">Creating web applications using Maven, Spring, Hibernate</a>

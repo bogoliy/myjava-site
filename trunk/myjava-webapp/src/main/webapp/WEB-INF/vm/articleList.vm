@@ -13,32 +13,68 @@
                     return false;
                 });
             });
+            $(document).ready(function(){
+                $(".searchPanel table img").mouseover(function(){
+                    $(this).parent().removeClass();
+                    $(this).parent().addClass("bordered");
+                    return false;
+                });
+                $(".searchPanel table img").mouseout(function(){
+                    $(this).parent().removeClass();
+                    $(this).parent().addClass("notBordered");
+                    return false;
+                });
+            });
+            
+            $(document).ready(function(){
+                $(".searchPanel table img").click(function(){
+                    $("form:first").submit();
+                });
+            });
         </script>
         <title>MyJava - my experience</title>
     </head>
     <body>
         <div class="content">
             <div class="topContent">
-                <div class="menu">
-                    <ul>
-                        <li>
-                            <a href="">Home</a>
-                        </li>
-                        <li>
-                            <a href="">Articles</a>
-                        </li>
-                    </ul>
+                <div class="rightPanel">
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a href="">Home</a>
+                            </li>
+                            <li>
+                                <a href="">Articles</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="searchPanel">
+                        <form method="get" action="articleList.x">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input class="input" type=="text" name="serachString" id="searchString"/>
+                                    </td>
+                                    <td>
+                                        <img src="images/view.gif">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="mainContent">
-                   	<div class="articleListTitle">#springMessage("availableArticles")</div>
-                	#foreach ($article in $articles) 
-                   		<ul class="articleList">
-                       		<li>
-                           		<a href="article.htm?id=${article.id}" target="_blank">${article.title}</a>
-                       		</li>
-                   		</ul>
-                	#end
+                <div class="articleListTitle">
+                    #springMessage("availableArticles")
+                </div>
+                #foreach ($article in $articles) 
+                <ul class="articleList">
+                    <li>
+                        <a href="article.htm?id=${article.id}" target="_blank">${article.title}</a>
+                    </li>
+                </ul>
+                #end
             </div>
             <div class="bottomContent">
                 Created by Bogoliy Sasha

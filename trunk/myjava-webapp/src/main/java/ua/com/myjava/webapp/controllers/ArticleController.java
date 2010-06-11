@@ -21,9 +21,9 @@ public class ArticleController implements Controller {
 	}
 
 	public void setArticleDAO(ArticleDAO articleDAO) {
-		this.articleDAO = articleDAO;
+		this.articleDAO = articleDAO; 
 	}
-
+ 
 	private ua.com.myjava.article.ArticleService articleService;
 
 	public ua.com.myjava.article.ArticleService getArticleService() {

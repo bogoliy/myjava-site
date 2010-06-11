@@ -7,7 +7,7 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
-				<entry key="/articleList.htm">
+				<entry key="/articleList.x">
 					<ref bean="articleListController" />
 				</entry>
 			</map>
@@ -63,6 +63,11 @@
 					jdbc:mysql://localhost/myjava
 				</prop>
 
+				<prop key="hibernate.search.default.indexBase">
+					D:\Programming/myjava/myjava/indexes
+				</prop>
+
+
 				<prop key="hibernate.connection.username">myjava</prop>
 				<prop key="hibernate.connection.password">myjava</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
@@ -74,6 +79,11 @@
 	<bean id="articleDAO" class="ua.com.myjava.persist.ArticleDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
+	<bean id="searchEngine" class="ua.com.myjava.search.SearchEngine">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
 
 
 </beans>

@@ -24,7 +24,7 @@ public class ArticleRssController implements Controller {
 	public void setArticleDAO(ArticleDAO articleDAO) {
 		this.articleDAO = articleDAO;
 	}
-	   
+	    
 	public ModelAndView handleRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 		//List<Article> articles = articleDAO.getArticles();

@@ -31,11 +31,14 @@ body {
     margin-top: 10px;
 }
 
+.rightPanel {
+    float: right;
+}
+
 /*
  Menu
  */
 .menu {
-    float: right;
     padding-right: 5px;
     position: relative;
     top: -10px;
@@ -179,3 +182,20 @@ a:link, a:visited {
 a:hover {
 	color:#CC0000;
 }
+
+.searchPanel {
+	position: relative;
+    padding-right: 5px;
+	padding: 0px 20px;
+	top: -5px;
+}
+.bordered {
+	border: 1px solid grey;
+	cursor: pointer;
+}
+.notBordered {
+	border: 1px solid white;
+	cursor: default;
+}
+
+
