@@ -7,13 +7,13 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
-				<entry key="/articleList.htm">
+				<entry key="/articleList.x">
 					<ref bean="articleListController" />
 				</entry>
-				<entry key="/article.htm">
+				<entry key="/article.x">
 					<ref bean="articleController" />
 				</entry>
-				<entry key="/rss.htm">
+				<entry key="/rss.x">
 					<ref bean="articleRssController" />
 				</entry>
 			</map>

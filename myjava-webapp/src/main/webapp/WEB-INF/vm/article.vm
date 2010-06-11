@@ -22,10 +22,7 @@
                 <div class="menu">
                     <ul>
                         <li>
-                            <a href="">Home</a>
-                        </li>
-                        <li>
-                            <a href="">Articles</a>
+                            <a href="">#springMessage("menu.articles")</a>
                         </li>
                     </ul>
                 </div>
