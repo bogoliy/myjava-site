@@ -34,6 +34,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-core-tiger</artifactId>
+    		<version>2.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
 			<version>2.0.7</version>
@@ -62,6 +67,11 @@
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.unitils</groupId>
@@ -105,6 +115,24 @@
 			<version>1.2.15</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>javax.mail</groupId>
+      				<artifactId>mail</artifactId>
+    			</exclusion>
+    			<exclusion>
+      				<groupId>javax.jms</groupId>
+      				<artifactId>jms</artifactId>
+    			</exclusion>
+    			<exclusion>
+      				<groupId>com.sun.jdmk</groupId>
+      				<artifactId>jmxtools</artifactId>
+    			</exclusion>
+    			<exclusion>
+      				<groupId>com.sun.jmx</groupId>
+      				<artifactId>jmxri</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -224,15 +252,32 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>http://http//reposi-tory.jboss.org/maven2/org/hibernate/hibernate-search
+			<id>repository.jboss.org
 			</id>
-			<name>http://http//reposi-tory.jboss.org/maven2/org/hibernate/hibernate-search
+			<name>hibernate-search
 			</name>
-			<url>http://http//reposi-tory.jboss.org/maven2/org/hibernate/hibernate-search
+			<url>http://repository.jboss.org/maven2/org/hibernate/hibernate-search
+			</url>
+		</repository>
+		
+		<repository>
+			<id>repo2.maven.org
+			</id>
+			<name>spring-security-core
+			</name>
+			<url>http://repo2.maven.org/maven2/org/springframework/security/spring-security-samples-ldap/2.0.5.RELEASE/
+			</url>
+		</repository>
+		
+		<repository>
+			<id>ftp.us.xemacs.org
+			</id>
+			<name>aspectj/aspectjrt
+			</name>
+			<url>http://repo2.maven.org/maven2/org/aspectj/aspectjrt/1.6.8/
 			</url>
 		</repository>
 	</repositories>
-
 
 
 	<pluginRepositories>
