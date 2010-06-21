@@ -26,7 +26,7 @@
 					com.mysql.jdbc.Driver
 				</prop>
 				<prop key="hibernate.connection.url">
-					jdbc:mysql://localhost/myjava
+					jdbc:mysql://www.freesql.org/myjava
 				</prop>
 
 				<prop key="hibernate.search.default.indexBase">
@@ -39,8 +39,8 @@
 				</prop>
 				
 
-				<prop key="hibernate.connection.username">bogoliy_myjava</prop>
-				<prop key="hibernate.connection.password">dtcyf200</prop>
+				<prop key="hibernate.connection.username">myjava</prop>
+				<prop key="hibernate.connection.password">myjava</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
 				<prop key="hibernate.jdbc.batch_size">0</prop>
 			</props>

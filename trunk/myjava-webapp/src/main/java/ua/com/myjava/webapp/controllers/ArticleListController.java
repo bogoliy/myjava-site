@@ -38,7 +38,7 @@ public class ArticleListController implements Controller {
 		else {
 			if (findAdditionalResults != null
 					&& findAdditionalResults.equals("true")) {
-				articles = articleDAO.getArticlesWithSameRoot(searchString);
+				articles = articleDAO.getArticles(searchString);
 				log.info("Retreiving results with the same root");
 			} else {
 				articles = articleDAO.getArticles(searchString);
