@@ -55,13 +55,13 @@ public class ArticleListControllerTest extends UnitilsJUnit4 {
 		}
 
 	}
-
+   
 	@SuppressWarnings("unchecked")
-	//@Test
+	@Test
 	public void testLuceneSearchByRoot() throws Exception {
 		try {
 			MockHttpServletRequest request = new MockHttpServletRequest();
-			request.setParameter("searchString", "помощи");
+			request.setParameter("searchString", "articleText:измени OR помощи");
 			request.setParameter("additionalResults", "true");
 			MockHttpServletResponse response = new MockHttpServletResponse();
 

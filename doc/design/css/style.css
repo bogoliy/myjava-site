@@ -199,3 +199,33 @@ a:hover {
 }
 
 
+.login {
+	margin-left: 20px;
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 100%;
+}
+
+.login_panel form{
+	border: 1px;
+	text-align: left;
+	float: left;
+}
+
+
+.login_panel a {
+    text-decoration: underline;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.login_panel a:hover {
+    text-decoration: underline;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+	#d4d0c8cursor: pointer;
+}

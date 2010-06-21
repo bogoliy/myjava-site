@@ -1,8 +1,4 @@
-
-DROP TABLE Article IF EXISTS;
-DROP TABLE Opinion IF EXISTS;
-DROP TABLE User IF EXISTS;
-
+﻿
 CREATE TABLE User (
        us_id INT NOT NULL
      , us_name VARCHAR(128) NOT NULL
@@ -35,4 +31,3 @@ ALTER TABLE Article
   ADD CONSTRAINT FK_Article_1
       FOREIGN KEY (us_id)
       REFERENCES User (us_id);
-

@@ -1,6 +1,7 @@
 package ua.com.myjava.model;
 
 import java.util.Collection;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,17 +43,20 @@ import ua.com.myjava.search.FileSystemArticleBridge;
 @AnalyzerDefs( {
 		@AnalyzerDef(name = "phonetic", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 				@TokenFilterDef(factory = StandardFilterFactory.class),
-				@TokenFilterDef(factory = StopFilterFactory.class),
+				@TokenFilterDef(factory = StopFilterFactory.class,
+						params = {@Parameter(name="words", value="stopwords.txt"),
+					@Parameter(name="ignoreCase", value="true")}),
 				@TokenFilterDef(factory = NGramFilterFactory.class, params = {
 						@Parameter(name = "maxGramSize", value = "3"),
 						@Parameter(name = "maxGramSize", value = "3") }) }),
 		@AnalyzerDef(name = "rassianSnowball", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 				@TokenFilterDef(factory = StandardFilterFactory.class),
-				@TokenFilterDef(factory = StopFilterFactory.class),
+				@TokenFilterDef(factory = StopFilterFactory.class, params = {@Parameter(name="words", value="stopwords.txt"),
+					@Parameter(name="ignoreCase", value="true")}),
 				@TokenFilterDef(factory = StopFilterFactory.class),
 				@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = @Parameter(name = "language", value = "Russian"))
 
-		})
+		}) 
 
 })
 @Analyzer(definition = "phonetic")
