@@ -57,7 +57,7 @@ import ua.com.myjava.search.FileSystemArticleBridge;
 				@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = @Parameter(name = "language", value = "Russian"))
 
 		}) 
-
+ 
 })
 @Analyzer(definition = "phonetic")
 @Indexed
