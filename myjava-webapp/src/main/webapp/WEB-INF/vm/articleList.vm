@@ -3,7 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="stylesheet" TYPE="text/css" href="css/style.css">
+        <link type="text/css" media="screen" rel="stylesheet" href="css/colorbox.css" />
         <script type="text/javascript" src="scripts/jquery.js">
+        </script>
+        <script src="scripts/jquery.colorbox.js">
+        </script>
+        <script type="text/javascript" src="scripts/jquery.form.js">
         </script>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -26,15 +31,62 @@
                 });
             });
             
+            
             $(document).ready(function(){
-                $(".searchPanel table img").click(function(){
-                    $("form:first").submit();
+                $(".login").colorbox({
+                    width: "240px",
+                    inline: true,
+                    href: "#login_panel"
+                });
+            });
+            
+            
+            $(document).ready(function(){
+                // готовим объект<br>
+                var options = {
+                    target: "#loginDiv",
+                    url: "j_spring_security_check",
+                    success: function(){
+                        alert("Спасибо за комментарий!");
+                    }
+                };
+                
+                // передаем опции в  ajaxSubmit
+                $("#loginForm").ajaxSubmit(options);
+                
+            });
+            
+            $(document).ready(function(){
+                $("#sendLogin").click(function(){
+                    //$(".login").colorbox.close();			 
+                    $("#loginForm").submit();
                 });
             });
         </script>
         <title>MyJava - my experience</title>
     </head>
     <body>
+        <!-- This contains the hidden content for inline calls -->
+        <div style='display:none'>
+            <div id='login_panel' class="login_panel">
+                <form action="j_spring_security_check" style="padding: 10px 20px" id="loginForm">
+                    <span class="label">Name:</span>
+                    <br/>
+                    <input ame="j_username" id="j_username" class="input" type= "text" />
+                    <br/>
+                    <span class="label">Password:</span>
+                    <br/>
+                    <input name="j_password" id="j_password" type= "password" class="input" />
+                    <br>
+                    <input type='checkbox' name='_spring_security_remember_me' />Remember me
+                    <br>
+                    <br>
+                    <div id = "loginDiv">
+                        <a id="sendLogin"> #springMessage("login.enterSystem")</a>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="content">
             <div class="topContent">
                 <div class="rightPanel">
@@ -45,6 +97,9 @@
                             </li>
                             <li>
                                 <a href="">Articles</a>
+                            </li>
+                            <li>
+                                <a class="login" href="#">Login</a>
                             </li>
                         </ul>
                     </div>
