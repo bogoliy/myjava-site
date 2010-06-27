@@ -10,6 +10,7 @@
 		<param-value>
 			classpath:applicationContext-article.xml
 			classpath:applicationContext-persist.xml
+			classpath:applicationContext-base.xml
 			classpath:applicationContext-security.xml
 		</param-value>
 	</context-param>
@@ -21,34 +22,6 @@
 		</param-value>
 	</context-param>
 	
-	 <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>
-            org.springframework.web.filter.DelegatingFilterProxy
-        </filter-class>
-    </filter>
-
-    <filter>
-        <filter-name>encoding-filter</filter-name>
-        <filter-class>
-            org.springframework.web.filter.CharacterEncodingFilter
-        </filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>encoding-filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -58,14 +31,12 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>myjava</servlet-name>
-		<url-pattern>*.x</url-pattern>
-	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>myjava</servlet-name>
-		<url-pattern>*.action</url-pattern>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.rss</url-pattern>
+		<url-pattern>*.x</url-pattern>
 	</servlet-mapping>
 		
 	<!-- Jetty not lock -->
@@ -78,6 +49,16 @@
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
+
+	<filter>
+  		<filter-name>springSecurityFilterChain</filter-name>
+  		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+  		<filter-name>springSecurityFilterChain</filter-name>
+  		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Language -->
 	<filter>

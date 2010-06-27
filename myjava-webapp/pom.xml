@@ -13,6 +13,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<spring.version>3.0.3.RELEASE</spring.version>
+		<spring-security.version>3.0.2.RELEASE</spring-security.version>
+		<jetty.version>6.1.24</jetty.version>
+	</properties>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>ua.com.myjava</groupId>
@@ -20,37 +27,68 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>ua.com.myjava</groupId>
 			<artifactId>myjava-persist</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-core-tiger</artifactId>
-    		<version>2.0.5.RELEASE</version>
-		</dependency>
+		
+		
+		<!-- spring web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.0.7</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- security begin -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+			
+		<!-- security end -->
+			
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.8</version>
+		</dependency>
+			
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.0.5</version>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>velocity</groupId>
 			<artifactId>velocity</artifactId>
@@ -58,43 +96,45 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
-			<version>0.9</version>
+			<version>1.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.6.8</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils</artifactId>
 			<version>2.4</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
 			<version>2.0.8</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.0</version>
 		</dependency>
+		
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search</artifactId>
-			<version>3.1.0.GA</version>
-			<type>jar</type>
-			<scope>compile</scope>
+   			<groupId>org.hibernate</groupId>
+   			<artifactId>hibernate-search</artifactId>
+   			<version>3.1.1.GA</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-common</artifactId>
@@ -102,6 +142,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
@@ -109,31 +150,15 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.16</version>
 			<type>jar</type>
 			<scope>compile</scope>
-			<exclusions>
-    			<exclusion>
-      				<groupId>javax.mail</groupId>
-      				<artifactId>mail</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>javax.jms</groupId>
-      				<artifactId>jms</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>com.sun.jdmk</groupId>
-      				<artifactId>jmxtools</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>com.sun.jmx</groupId>
-      				<artifactId>jmxri</artifactId>
-    			</exclusion>
-  			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -141,11 +166,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.8</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
@@ -153,6 +180,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-snowball</artifactId>
@@ -160,6 +188,21 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- jetty -->
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty</artifactId>
+				<version>${jetty.version}</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jsp-2.1-jetty</artifactId>
+				<version>${jetty.version}</version>
+				<scope>test</scope>
+			</dependency>
 
 	</dependencies>
 
@@ -170,7 +213,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.21</version>
+				<version>${jetty.version}</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopKey>foo</stopKey>
@@ -252,33 +295,16 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>repository.jboss.org
-			</id>
-			<name>hibernate-search
-			</name>
-			<url>http://repository.jboss.org/maven2/org/hibernate/hibernate-search
-			</url>
+			<id>hibernate-search</id>
+			<name>hibernate-search</name>
+			<url>http://repository.jboss.org/maven2/</url>
 		</repository>
-		
 		<repository>
-			<id>repo2.maven.org
-			</id>
-			<name>spring-security-core
-			</name>
-			<url>http://repo2.maven.org/maven2/org/springframework/security/spring-security-samples-ldap/2.0.5.RELEASE/
-			</url>
-		</repository>
-		
-		<repository>
-			<id>ftp.us.xemacs.org
-			</id>
-			<name>aspectj/aspectjrt
-			</name>
-			<url>http://repo2.maven.org/maven2/org/aspectj/aspectjrt/1.6.8/
-			</url>
+			<id>rome</id>
+			<name>rome</name>
+			<url>http://download.java.net/maven/2/</url>
 		</repository>
 	</repositories>
-
 
 	<pluginRepositories>
 		<pluginRepository>
