@@ -9,16 +9,37 @@
  
 	<bean class="ua.com.myjava.webapp.security.IPTokenBasedRememberMeServices" id="ipTokenBasedRememberMeServicesBean">
 		<property name="key"><value>myjava-webapp-cookie</value></property>
-		<property name="userDetailsService" ref="userService"/>
+		<property name="userDetailsService" ref="jdbcUserService"/>
 		<property name="parameter"><value>_remember_me</value></property>
 		<property name="cookieName"><value>REMEMBER_ME</value></property>
 	</bean>
 	
-	<bean id="userService" class="ua.com.myjava.webapp.security.InMemoryChangePasswordDaoImpl">
+	<!--<bean id="userService" class="ua.com.myjava.webapp.security.InMemoryChangePasswordDaoImpl">
 		<property name="userProperties">
 			<props>
 				<prop key="guest">guest,ROLE_USER</prop>
 			</props>
+		</property>
+	</bean>-->
+	
+	<bean id="jdbcUserService" class="ua.com.myjava.webapp.security.CustomJdbcDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="enableGroups" value="true"/>
+		<property name="enableAuthorities" value="false"/>
+		<property name="usersByUsernameQuery">
+			<value>
+				SELECT USER_LOGIN, USER_PASSWORD, 1 FROM USER WHERE USER_LOGIN = ?
+			</value>
+		</property>
+		<property name="groupAuthoritiesByUsernameQuery">
+			<value>
+				SELECT G.GROUP_ID, G.GROUP_NAME, P.PERMISSION FROM USER U
+				JOIN USER_GROUP UG on U.USER_ID=UG.USER_ID
+				JOIN PERMISSION_GROUP G on UG.GROUP_ID=G.GROUP_ID
+				JOIN GROUP_PERMISSION GP on G.GROUP_ID=GP.GROUP_ID
+				JOIN PERMISSION P on GP.PERMISSION_ID=P.PERMISSION_ID
+				WHERE U.USER_LOGIN = ?
+			</value>
 		</property>
 	</bean>
 	
