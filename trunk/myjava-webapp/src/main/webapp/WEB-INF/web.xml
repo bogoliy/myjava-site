@@ -10,8 +10,8 @@
 		<param-value>
 			classpath:applicationContext-article.xml
 			classpath:applicationContext-persist.xml
-			classpath:applicationContext-base.xml
 			classpath:applicationContext-security.xml
+			classpath:applicationContext-base.xml
 		</param-value>
 	</context-param>
 
