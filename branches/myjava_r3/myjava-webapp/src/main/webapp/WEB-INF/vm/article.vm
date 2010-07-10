@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link REL="stylesheet" TYPE="text/css" href="css/style.css">
+        <script type="text/javascript" src="scripts/jquery.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".opinion h1").click(function(){
+                    $(this).next().slideToggle("fast");
+                    $(this).toggleClass("collapsed");
+                    return false;
+                });
+            });
+        </script>
+        <title>MyJava - my experience</title>
+    </head>
+    <body>
+        <div class="content">
+            <div class="topContent">
+                <div class="menu">
+                    <ul>
+                        <li>
+                            <a href="">#springMessage("menu.articles")</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mainContent">
+                <div class="article">
+                    <h1>${article.title}</h1>
+                    <p>
+                        ${article.text}
+                    </p>
+                </div>
+                <div class="opinions">
+                    <div class="opinion">
+                        <h1>Bogoliy Sasha wrote: </h1>
+                        <div id="opinionText">
+                            <p>
+                                This is good article
+                            </p>
+                        </div>
+                    </div>
+                    <div class="opinion">
+                        <h1>Kuzmenko Denis wrote: </h1>
+                        <div id="opinionText">
+                            <p>
+                                Not bad
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="opinionForm">
+                    <form method="post">
+                        <span class="label">#springMessage("addOpinion.name")</span>
+                        <br/>
+                        <input name="name" id="name" class="input" type= "text" />
+                        <br/>
+                        <span class="label">#springMessage("addOpinion.email")</span>
+                        <br/>
+                        <input name="email" id="email" class="input" type= "text" />
+                        <br/>
+                        <span class="label">#springMessage("addOpinion.opinion")</span>
+                        <br/>
+                        <textarea name="opinion" id="opinion" class="input" cols="60" rows="5">
+                        </textarea>
+                        <br/>
+                        <input class="submit" type="submit" value="#springMessage("addOpinion.submit")"/>
+                    </form>
+                    <br>
+                </div>
+            </div>
+            <div class="bottomContent">
+                Created by Bogoliy Sasha
+            </div>
+        </div>
+    </body>
+</html>

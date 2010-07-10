@@ -1,0 +1,863 @@
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>В
+этой статье я попытаюсь описать процесс создания многомодульного  <SPAN LANG="en-US">WEB
+</SPAN>приложения<SPAN LANG="en-US">. </SPAN><SPAN LANG="ru-RU">Итак
+начнем. Для примера, создадим сайт </SPAN><SPAN LANG="en-US"><U><B>myjava.com.ua</B></U></SPAN><SPAN LANG="ru-RU">
+с полезными статьями по </SPAN><SPAN LANG="en-US">Java (</SPAN><SPAN LANG="ru-RU">типа
+этого:))))</SPAN><SPAN LANG="en-US">). </SPAN><SPAN LANG="ru-RU"> </SPAN></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU">Для
+</SPAN></FONT></FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US">
+</SPAN></FONT></FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=3>
+сборки проекта будем использовать </FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Apache&nbsp;</SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><B>Maven</B></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">&nbsp;.
+Детальную инфу по которому можна почитать в 2 книгах, доступных для
+скачивания на сайте </SPAN></SPAN></FONT></FONT></FONT><A HREF="http://www.sonatype.com/documentation/books">http://www.sonatype.com/documentation/books</A><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">.</SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"> <FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Так
+наше приложение будет состоять из </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">4</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+подмодулей (для начала:)):</SPAN></SPAN></FONT></FONT></FONT></P>
+<OL>
+	<LI><P LANG="en-US" STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">myjava-model
+	&ndash; </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">в
+	этом модуле будет описана обьектаня модель приложения. Тоесть это
+	такие классы, как </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Opinion
+	&ndash; </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">описывающий
+	отзыв о какой то статье, </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Article
+	&ndash; </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">собственно
+	сама статья(точнее инфа о ней &mdash; где хранится, кто автор, как
+	называется), ну и другие классы описывающие данные приложения,</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+	<LI><P LANG="en-US" STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">
+	</FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">myjava-article
+	&ndash; </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">тут
+	мы опишем логику по чтению статтей. Напишем пару класиков, которые
+	будут управлять стаьями. Статьи у нас будут хранится в виде обычных
+	</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">html
+	</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+	файлов прямо на диске. Вообще то было несколько идей: хранить в базе
+	в табличке, хранить в </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">jcr
+	(Java Content Repository) </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">типа
+	</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">JackRabbit,
+	</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+	хранить в файликах на диске.Но в файликах  быстрее всего получиться,
+	кроме того очень просто редактировать статьи, причем в любом
+	редакторе. Да и статьи редко изменяются &mdash; нет смысла их в базе
+	хранить.</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"> <FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Myjava
+	&ndash; persist &ndash; модуль содержит Data Access Objects (DAO),
+	для хранния обьектов в базе данных.  Он напрямую зависит от
+	myjava-model  </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+	зависит от </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Hibernate
+	</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">аннотаций
+	определенных в последнем. </SPAN></SPAN></SPAN></FONT></FONT></FONT>
+	</P>
+	<LI><P LANG="en-US" STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Myjava-webapp
+	&ndash; </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">это
+	наш </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">web-</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">проект.
+	Тут мы будем использовать </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Spring
+	MVC.</SPAN></SPAN></FONT></FONT></FONT></P>
+</OL>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Как
+среду разработки будем испольовать </SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Eclipse.
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Заходим
+на сайт
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><A HREF="http://www.sonatype.com/products/m2eclipse/features/installation">http://www.sonatype.com/products/m2eclipse/features/installation</A><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+и смотрим видео где и как скачать  </SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Eclipse
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">m2eclipse
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">плагин
+для </SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Maven
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+как их установить.</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"> </FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#ffffff"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><B>clipse</B></SPAN></SPAN></FONT><FONT COLOR="#ffffff"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><B>m2eclipse</B></SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Удачно
+установив </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Eclipse
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+плагин приступаем к разработке проэкта. Сначала нужно создать
+родительский проэкт, который будет содержать все эти подмодули
+(описаны выше).  </SPAN></SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"> </FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Создаем
+новый </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Maven
+Project:</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_34afec93.png" NAME="Графический объект1" ALIGN=LEFT WIDTH=404 HEIGHT=427 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_m1dbe0bcf.png" NAME="Графический объект2" ALIGN=LEFT WIDTH=412 HEIGHT=388 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>Получаем
+проект вида:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><IMG SRC="1_html_2fe8c7c9.gif" NAME="Графический объект3" ALIGN=LEFT WIDTH=184 HEIGHT=210 BORDER=0><BR CLEAR=LEFT><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Открываем
+</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">pom.xml:</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Ставим
+</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Packaging
+ - pom. </SPAN></SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_3fa8f90d.png" NAME="Графический объект4" ALIGN=LEFT WIDTH=643 HEIGHT=573 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>На
+этом создание родительского проэкта завершено. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-style: normal"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-style: normal"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-style: normal"><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Создание
+модели приложения:</B></FONT></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-style: normal"><BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Приступим
+к разработке </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">myjava-model.
+</SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Нам
+необходимо построить концептуальную модель базы данных.  Советую
+почитать  книженцию Питер Роб &laquo;Системы баз данных&raquo;, там
+все просто идеально расписано.  Идеально было бы найти и скачать где
+то </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Visual
+Paradigm for UML </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">или
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Rational
+Rose(</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">первая
+мне больше доставляет</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">),
+</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">но
+фиг где найдешь да и весят они до...я. Поэтому идем на   </SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">update
+site: </SPAN></SPAN></FONT><B><A HREF="http://www.azzurri.co.jp/eclipse/plugins/">http://www.azzurri.co.jp/eclipse/plugins/</A></B><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">и
+ставим </SPAN></SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_3e61a6bb.png" NAME="Графический объект5" ALIGN=LEFT WIDTH=643 HEIGHT=448 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"> <FONT FACE="Arial, sans-serif"><FONT SIZE=3>Теперь
+нам необходимо выделить сущности и их свойства.</FONT></FONT></FONT></P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>New
+&rarr; Database Modeling &rarr; Clay Database Modeling</FONT></FONT></FONT></P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_m7d6538c8.png" NAME="Графический объект6" ALIGN=LEFT WIDTH=528 HEIGHT=386 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>Строим
+нашу схему бд:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_802f639.png" NAME="Графический объект7" ALIGN=LEFT WIDTH=643 HEIGHT=573 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Далее
+генерим </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">ddl
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">код
+(</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Clay
+&rarr; Generate SQL</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">):
+</SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>DROP</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Opinion IF </FONT><FONT COLOR="#7f0055"><B>EXISTS</B></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>DROP</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Article IF </FONT><FONT COLOR="#7f0055"><B>EXISTS</B></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>DROP</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+User IF </FONT><FONT COLOR="#7f0055"><B>EXISTS</B></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>CREATE</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+User (</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>us_id </FONT><FONT COLOR="#4000c8"><B>INT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+us_name </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(128)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+us_login </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(32)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+us_password </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(256)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+</FONT><FONT COLOR="#7f0055"><B>PRIMARY</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>KEY</B></FONT><FONT COLOR="#000000">
+(us_id)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>CREATE</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Article (</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>ar_id </FONT><FONT COLOR="#4000c8"><B>INT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+ar_title </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(512)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+ar_filename </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(255)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+us_id </FONT><FONT COLOR="#4000c8"><B>INT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+ar_date DATETIME</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+</FONT><FONT COLOR="#7f0055"><B>PRIMARY</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>KEY</B></FONT><FONT COLOR="#000000">
+(ar_id)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>CREATE</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Opinion (</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>op_id </FONT><FONT COLOR="#4000c8"><B>INT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+op_text </FONT><FONT COLOR="#7f0055"><B>VARCHAR</B></FONT><FONT COLOR="#000000">(1024)
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+us_id </FONT><FONT COLOR="#4000c8"><B>INT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>NOT</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#4000c8"><B>NULL</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+op_date DATETIME</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     <FONT FACE="Courier New, monospace"><FONT SIZE=2>,
+</FONT><FONT COLOR="#7f0055"><B>PRIMARY</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>KEY</B></FONT><FONT COLOR="#000000">
+(op_id)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>ALTER</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Article</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">  </FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>ADD</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>CONSTRAINT</B></FONT><FONT COLOR="#000000">
+FK_Article_1</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>FOREIGN</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>KEY</B></FONT><FONT COLOR="#000000">
+(us_id)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>REFERENCES</B></FONT><FONT COLOR="#000000">
+User (us_id);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>ALTER</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>TABLE</B></FONT><FONT COLOR="#000000">
+Opinion</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">  </FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>ADD</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>CONSTRAINT</B></FONT><FONT COLOR="#000000">
+FK_Opinion_1</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>FOREIGN</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>KEY</B></FONT><FONT COLOR="#000000">
+(us_id)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>REFERENCES</B></FONT><FONT COLOR="#000000">
+User (us_id);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Создадим
+сабмоуль </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">myjava-model.
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">На
+родительском проекте : </SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">New
+&rarr; Maven Module</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<IMG SRC="1_html_2a3e4767.gif" NAME="Графический объект8" ALIGN=LEFT WIDTH=206 HEIGHT=353 BORDER=0><BR CLEAR=LEFT><BR>
+</P>
+<P LANG="en-US" STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">в
+</SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">pom.xml
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">добавляем
+следующие зависимости: </SPAN></SPAN></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">&lt;?</SPAN></SPAN></SPAN></FONT><FONT COLOR="#3f7f7f"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">xml</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#7f007f"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">version</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">=</SPAN></SPAN></SPAN></FONT><FONT COLOR="#2a00ff"><SPAN LANG="en-US"><I><SPAN STYLE="font-weight: normal">&quot;1.0&quot;</SPAN></I></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#7f007f"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">encoding</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">=</SPAN></SPAN></SPAN></FONT><FONT COLOR="#2a00ff"><SPAN LANG="en-US"><I><SPAN STYLE="font-weight: normal">&quot;UTF-8&quot;</SPAN></I></SPAN></FONT><FONT COLOR="#008080"><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">?&gt;</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">project</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">parent</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">ua.com.myjava</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">0.0.1-SNAPSHOT</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">parent</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">modelVersion</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">4.0.0</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">modelVersion</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">ua.com.myjava</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#000000">-model</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#000000">-model</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">0.0.1-SNAPSHOT</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">http://maven.apache.org</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependencies</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">junit</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">junit</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.8.1</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">scope</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">test</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">scope</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-commons-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependencies</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">project</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Тут
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="en-US"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Maven
+</SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">ругается
+что не может найти </SPAN></SPAN></SPAN></FONT></FONT></FONT><FONT COLOR="#ff0000"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">javax.transaction:jta:jar:1.0.1B:compile</SPAN></SPAN></FONT><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">.
+</SPAN></SPAN></SPAN></FONT></FONT></FONT></FONT></FONT>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=3>Поэтому
+добавляем репозиторий с этой либой:</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">&lt;?</SPAN></SPAN></SPAN></FONT><FONT COLOR="#3f7f7f"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">xml</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#7f007f"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">version</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">=</SPAN></SPAN></SPAN></FONT><FONT COLOR="#2a00ff"><SPAN LANG="ru-RU"><I><SPAN STYLE="font-weight: normal">&quot;1.0&quot;</SPAN></I></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></SPAN></FONT><FONT COLOR="#7f007f"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">encoding</SPAN></SPAN></SPAN></FONT><FONT COLOR="#000000"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">=</SPAN></SPAN></SPAN></FONT><FONT COLOR="#2a00ff"><SPAN LANG="ru-RU"><I><SPAN STYLE="font-weight: normal">&quot;UTF-8&quot;</SPAN></I></SPAN></FONT><FONT COLOR="#008080"><SPAN LANG="ru-RU"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">?&gt;</SPAN></SPAN></SPAN></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">project</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">parent</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">ua.com.myjava</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">0.0.1-SNAPSHOT</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">parent</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">modelVersion</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">4.0.0</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">modelVersion</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">ua.com.myjava</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#000000">-model</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000"><U>myjava</U></FONT><FONT COLOR="#000000">-model</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">0.0.1-SNAPSHOT</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">http://maven.apache.org</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">repositories</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">repository</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">id</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">http://download.java.net/maven/2/</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">id</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">http://download.java.net/maven/2/</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">name</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">http://download.java.net/maven/2/</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">url</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">repository</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">repositories</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependencies</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">junit</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">junit</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.8.1</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">scope</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">test</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">scope</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-commons-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependencies</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">project</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=2>И
+последнее добавляем поддержку всех модных фич (типа аннтаций) которые
+присущи <SPAN LANG="en-US">Java 1.5 +.</SPAN></FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="en-US" ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">&hellip;<FONT FACE="Arial, sans-serif"><FONT SIZE=2><B>..</B></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2><SPAN LANG="en-US">		</SPAN><FONT COLOR="#008080"><SPAN LANG="en-US">&lt;</SPAN></FONT><FONT COLOR="#3f7f7f"><SPAN LANG="en-US">dependency</SPAN></FONT><FONT COLOR="#008080"><SPAN LANG="en-US">&gt;</SPAN></FONT></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">org.hibernate</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">groupId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">hibernate-commons-annotations</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">3.3.0.ga</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependency</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">dependencies</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">build</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">plugins</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">plugin</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">				</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">maven-compiler-plugin</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">artifactId</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">				</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">2.0.2</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">version</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">				</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">configuration</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">					</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">source</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">1.6</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">source</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">					</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">target</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">1.6</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">target</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">					</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">encoding</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">UTF-8</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">encoding</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">					</FONT><FONT COLOR="#008080">&lt;</FONT><FONT COLOR="#3f7f7f">skip</FONT><FONT COLOR="#008080">&gt;</FONT><FONT COLOR="#000000">true</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">skip</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">				</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">configuration</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">			</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">plugin</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">		</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">plugins</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B><FONT COLOR="#000000">	</FONT><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">build</FONT><FONT COLOR="#008080">&gt;</FONT></B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#008080">&lt;/</FONT><FONT COLOR="#3f7f7f">project</FONT><FONT COLOR="#008080">&gt;</FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, sans-serif"><FONT SIZE=4>Все
+можна <SPAN LANG="ru-RU">приступать за маппинг классов.</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"> <FONT FACE="Arial, sans-serif"><FONT SIZE=4><FONT COLOR="#7f0055"><FONT FACE="Courier New, monospace"><FONT SIZE=2><B>package</B></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>
+org.myjava.model;</FONT></FONT></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Column;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Entity;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GeneratedValue;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GenerationType;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Id;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#646464">@</FONT><FONT COLOR="#000000">javax.persistence.</FONT><FONT COLOR="#646464">TableGenerator</FONT><FONT COLOR="#000000">(</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   name=</FONT><FONT COLOR="#2a00ff">&quot;USER_GEN&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   table=</FONT><FONT COLOR="#2a00ff">&quot;GENERATOR_TABLE&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   pkColumnName = </FONT><FONT COLOR="#2a00ff">&quot;key&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   valueColumnName = </FONT><FONT COLOR="#2a00ff">&quot;value&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   pkColumnValue=</FONT><FONT COLOR="#2a00ff">&quot;USER&quot;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#646464"><FONT FACE="Courier New, monospace"><FONT SIZE=2>@Entity</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>class</B></FONT><FONT COLOR="#000000">
+User {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Id</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;us_id&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@GeneratedValue</FONT><FONT COLOR="#000000">(strategy=GenerationType.</FONT><FONT COLOR="#0000c0"><I>TABLE</I></FONT><FONT COLOR="#000000">,
+generator=</FONT><FONT COLOR="#2a00ff">&quot;USER_GEN&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;us_name&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0">name</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;us_login&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0">login</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;us_password&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0">password</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+getId() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setId(</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+id) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">
+= id;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String getName() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">name</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setName(String name) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">name</FONT><FONT COLOR="#000000">
+= name;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String getLogin() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">login</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setLogin(String login) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">login</FONT><FONT COLOR="#000000">
+= login;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String getPassword() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">password</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setPassword(String password) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">password</FONT><FONT COLOR="#000000">
+= password;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>}</FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
+<BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><SPAN LANG="en-US"><B>package</B></SPAN></FONT><SPAN LANG="en-US">
+org.myjava.model;</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+java.util.Date;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Column;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GeneratedValue;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GenerationType;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Id;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.ManyToOne;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#646464">@</FONT><FONT COLOR="#000000">javax.persistence.</FONT><FONT COLOR="#646464">TableGenerator</FONT><FONT COLOR="#000000">(</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   name=</FONT><FONT COLOR="#2a00ff">&quot;ART_GEN&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   table=</FONT><FONT COLOR="#2a00ff">&quot;GENERATOR_TABLE&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   pkColumnName = </FONT><FONT COLOR="#2a00ff">&quot;key&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   valueColumnName = </FONT><FONT COLOR="#2a00ff">&quot;value&quot;</FONT><FONT COLOR="#000000">,</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	
+   pkColumnValue=</FONT><FONT COLOR="#2a00ff">&quot;ARTICLE&quot;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>class</B></FONT><FONT COLOR="#000000">
+Article {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Id</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;ar_id&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@GeneratedValue</FONT><FONT COLOR="#000000">(strategy=GenerationType.</FONT><FONT COLOR="#0000c0"><I>TABLE</I></FONT><FONT COLOR="#000000">,
+generator=</FONT><FONT COLOR="#2a00ff">&quot;ART_GEN&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;ar_title&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0">title</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;ar_filename&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0">filename</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name=</FONT><FONT COLOR="#2a00ff">&quot;ar_date&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+Date </FONT><FONT COLOR="#0000c0">date</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+User </FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+getId() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setId(</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+id) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">id</FONT><FONT COLOR="#000000">
+= id;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String getTitle() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">title</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setTitle(String title) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">title</FONT><FONT COLOR="#000000">
+= title;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+String getFilename() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">filename</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setFilename(String filename) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">filename</FONT><FONT COLOR="#000000">
+= filename;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+Date getDate() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">date</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setDate(Date date) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">date</FONT><FONT COLOR="#000000">
+= date;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@ManyToOne</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+User getUser() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setUser(User user) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">
+= user;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
+<FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>}</FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><SPAN LANG="en-US"><B>package</B></SPAN></FONT><SPAN LANG="en-US">
+org.myjava.model;</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+java.util.Date;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Column;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GeneratedValue;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.GenerationType;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.Id;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>import</B></FONT><FONT COLOR="#000000">
+javax.persistence.ManyToOne;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#646464">@</FONT><FONT COLOR="#000000">javax.persistence.</FONT><FONT COLOR="#646464">TableGenerator</FONT><FONT COLOR="#000000">(name
+= </FONT><FONT COLOR="#2a00ff">&quot;OP_GEN&quot;</FONT><FONT COLOR="#000000">,
+table = </FONT><FONT COLOR="#2a00ff">&quot;GENERATOR_TABLE&quot;</FONT><FONT COLOR="#000000">,
+pkColumnName = </FONT><FONT COLOR="#2a00ff">&quot;key&quot;</FONT><FONT COLOR="#000000">,
+valueColumnName = </FONT><FONT COLOR="#2a00ff">&quot;value&quot;</FONT><FONT COLOR="#000000">,
+pkColumnValue = </FONT><FONT COLOR="#2a00ff">&quot;OPINION&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>class</B></FONT><FONT COLOR="#000000">
+Opinion {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Id</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name
+= </FONT><FONT COLOR="#2a00ff">&quot;op_id&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@GeneratedValue</FONT><FONT COLOR="#000000">(strategy
+= GenerationType.</FONT><FONT COLOR="#0000c0"><I>TABLE</I></FONT><FONT COLOR="#000000">,
+generator = </FONT><FONT COLOR="#2a00ff">&quot;OP_GEN&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>int</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0"><U>id</U></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name
+= </FONT><FONT COLOR="#2a00ff">&quot;op_text&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+String </FONT><FONT COLOR="#0000c0"><U>text</U></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@Column</FONT><FONT COLOR="#000000">(name
+= </FONT><FONT COLOR="#2a00ff">&quot;op_date&quot;</FONT><FONT COLOR="#000000">)</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+Date </FONT><FONT COLOR="#0000c0"><U>date</U></FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>private</B></FONT><FONT COLOR="#000000">
+User </FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#646464">@ManyToOne</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+User getUser() {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>return</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">	</FONT><FONT COLOR="#7f0055"><B>public</B></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#7f0055"><B>void</B></FONT><FONT COLOR="#000000">
+setUser(User user) {</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Courier New, monospace"><FONT SIZE=2><FONT COLOR="#000000">		</FONT><FONT COLOR="#7f0055"><B>this</B></FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#0000c0">user</FONT><FONT COLOR="#000000">
+= user;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>	}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, monospace"><FONT SIZE=2>}</FONT></FONT></FONT></P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="en-US" ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
