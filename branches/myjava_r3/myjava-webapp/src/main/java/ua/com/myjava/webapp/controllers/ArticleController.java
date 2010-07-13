@@ -3,6 +3,7 @@ package ua.com.myjava.webapp.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -25,15 +26,16 @@ public class ArticleController implements Controller {
 		this.articleDAO = articleDAO; 
 	}
  
-	private ua.com.myjava.article.ArticleService articleService;
+	private ua.com.myjava.article.ArticleHelper articleHelper;
 
-	public ua.com.myjava.article.ArticleService getArticleService() {
-		return articleService;
+
+
+	public ua.com.myjava.article.ArticleHelper getArticleHelper() {
+		return articleHelper;
 	}
 
-	public void setArticleService(
-			ua.com.myjava.article.ArticleService articleService) {
-		this.articleService = articleService;
+	public void setArticleHelper(ua.com.myjava.article.ArticleHelper articleHelper) {
+		this.articleHelper = articleHelper;
 	}
 
 	public ModelAndView handleRequest(HttpServletRequest req,
@@ -51,7 +53,7 @@ public class ArticleController implements Controller {
 		}
 			
 		
-		article.setText(articleService.getArticle(req.getRealPath(".") + "\\articles\\" + article.getFilename()));
+		article.setText(articleHelper.getArticle(req.getRealPath(".") + "\\articles\\" + article.getFilename()));
 		return new ModelAndView("article", "article", article);
 	}
 }

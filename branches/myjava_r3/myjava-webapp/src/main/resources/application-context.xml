@@ -83,7 +83,7 @@
 	<bean id="searchEngine" class="ua.com.myjava.search.SearchEngine">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	 <bean id="articleService" class="ua.com.myjava.service.ArticleService"/>
 
 
 </beans>

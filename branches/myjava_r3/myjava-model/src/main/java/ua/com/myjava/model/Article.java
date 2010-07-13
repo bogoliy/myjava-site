@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
@@ -39,7 +40,7 @@ import org.hibernate.search.annotations.TokenizerDef;
 import ua.com.myjava.search.FileSystemArticleBridge;
 
 @javax.persistence.TableGenerator(name = "ART_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "ARTICLE")
-@Entity
+@Entity 
 @AnalyzerDefs( {
 		@AnalyzerDef(name = "phonetic", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 				@TokenFilterDef(factory = StandardFilterFactory.class),
@@ -62,6 +63,7 @@ import ua.com.myjava.search.FileSystemArticleBridge;
 @Analyzer(definition = "phonetic")
 @Indexed
 @BatchSize(size=100)
+@Table(name="article", schema="myjava")
 public class Article {
 
 	private int id;

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.DocumentId;
@@ -18,6 +19,7 @@ import org.hibernate.search.annotations.Field;
 @javax.persistence.TableGenerator(name = "OP_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "OPINION")
 @Entity
 @Embeddable
+@Table(name="opinion", schema="myjava")
 public class Opinion {
 
 	private int id;

@@ -7,13 +7,13 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
-				<entry key="/articleList.x">
+				<entry key="/articleList.htm">
 					<ref bean="articleListController" />
 				</entry>
-				<entry key="/article.x">
+				<entry key="/article.htm">
 					<ref bean="articleController" />
 				</entry>
-				<entry key="/rss.x">
+				<entry key="/rss.htm">
 					<ref bean="articleRssController" />
 				</entry>
 			</map>
@@ -46,7 +46,7 @@
 
 	<bean id="articleController" class="ua.com.myjava.webapp.controllers.ArticleController">
 		<property name="articleDAO" ref="articleDAO" />
-		<property name="articleService" ref="articleService" />
+		<property name="articleHelper" ref="articleHelper" />
 	</bean>
 
 	<bean id="articleRssController" class="ua.com.myjava.webapp.controllers.ArticleRssController">

@@ -3,5 +3,5 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd" 
 	default-lazy-init="true" >
-	<bean id="articleService" class="ua.com.myjava.article.ArticleService"/>
+	<bean id="articleHelper" class="ua.com.myjava.article.ArticleHelper"/>
 </beans>

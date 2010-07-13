@@ -30,6 +30,12 @@
 			<version>3.2.5.ga</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -37,6 +43,12 @@
 			<version>3.3.0.ga</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -44,6 +56,12 @@
 			<version>3.3.0.ga</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -55,7 +73,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
-			<version>2.0.7</version>
+			<version>2.5.6</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -69,6 +87,20 @@
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
 			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
