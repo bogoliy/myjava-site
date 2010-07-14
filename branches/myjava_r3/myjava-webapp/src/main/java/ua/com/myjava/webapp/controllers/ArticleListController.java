@@ -1,6 +1,8 @@
 package ua.com.myjava.webapp.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java.util.logging.Logger;
 
@@ -12,11 +14,12 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import ua.com.myjava.model.Article;
 import ua.com.myjava.persist.ArticleDAO;
+import ua.com.myjava.webapp.fckeditor.FCKeditorWrapper;
 
 public class ArticleListController implements Controller {
 	Logger log = Logger.getLogger(ArticleListController.class.toString());
 	ArticleDAO articleDAO;
- 
+
 	public ArticleDAO getArticleDAO() {
 		return articleDAO;
 	}
@@ -32,7 +35,8 @@ public class ArticleListController implements Controller {
 				.getParameter("additionalResults");
 
 		List<Article> articles = null;
-		log.info("Starting controller work with search string = " + searchString);
+		log.info("Starting controller work with search string = "
+				+ searchString);
 		if (searchString == null)
 			articles = articleDAO.getArticles();
 		else {
@@ -46,6 +50,9 @@ public class ArticleListController implements Controller {
 			}
 
 		}
-		return new ModelAndView("articleList", "articles", articles);
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put("editor", new FCKeditorWrapper(request));
+		props.put("articles", articles);
+		return new ModelAndView("articleList", props);
 	}
 }

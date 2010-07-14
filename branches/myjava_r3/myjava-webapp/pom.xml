@@ -20,13 +20,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency> 
+		<dependency>
 			<groupId>ua.com.myjava</groupId>
 			<artifactId>myjava-persist</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
-		</dependency> 
-		<dependency> 
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.4</version>
@@ -34,9 +34,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-core-tiger</artifactId>
-    		<version>2.0.5.RELEASE</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core-tiger</artifactId>
+			<version>2.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -95,11 +95,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 			<exclusions>
-    			<exclusion>
-      				<groupId>org.slf4j</groupId>
-      				<artifactId>slf4j-api</artifactId>
-    			</exclusion>
-  			</exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
@@ -122,23 +122,23 @@
 			<type>jar</type>
 			<scope>compile</scope>
 			<exclusions>
-    			<exclusion>
-      				<groupId>javax.mail</groupId>
-      				<artifactId>mail</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>javax.jms</groupId>
-      				<artifactId>jms</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>com.sun.jdmk</groupId>
-      				<artifactId>jmxtools</artifactId>
-    			</exclusion>
-    			<exclusion>
-      				<groupId>com.sun.jmx</groupId>
-      				<artifactId>jmxri</artifactId>
-    			</exclusion>
-  			</exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--Axis 2 Dependencies -->
 		<dependency>
@@ -211,7 +211,7 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.3</version> 
+			<version>1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>stax</groupId>
@@ -228,7 +228,7 @@
 			<artifactId>geronimo-javamail_1.4_spec
 			</artifactId>
 			<version>1.2</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-activation_1.1_spec
@@ -243,7 +243,7 @@
 				<exclusion>
 					<groupId>com.sun.xml.ws</groupId>
 					<artifactId>jaxws-rt</artifactId>
-				</exclusion> 
+				</exclusion>
 				<exclusion>
 					<groupId>com.sun.xml.bind</groupId>
 					<artifactId>jaxb-xjc</artifactId>
@@ -263,8 +263,19 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
-	</dependencies> 
+		<!-- FCK Editor -->
+		<dependency>
+			<groupId>net.fckeditor</groupId>
+			<artifactId>java-core</artifactId>
+			<version>2.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>myjava</finalName>
@@ -354,44 +365,21 @@
 		</plugins>
 	</build>
 	<!--
-	<repositories>
-		<repository>
-			<id>repository.jboss.org
-			</id>
-			<name>hibernate-search
-			</name>
-			<url>http://repository.jboss.org/maven2/org/hibernate/hibernate-search
-			</url>
-		</repository>
-		
-		<repository> 
-			<id>ftp.us.xemacs.org
-			</id>
-			<name>aspectj/aspectjrt
-			</name>
-			<url>http://repo2.maven.org/maven2/org/aspectj/aspectjrt/1.6.8/
-			</url>
-		</repository>
-		<repository>
-			<id>http://www.jarvana.com/jarvana/</id>
-			<name>http://www.jarvana.com/jarvana/</name>
-			<url>http://www.jarvana.com/jarvana/</url>
-		</repository>
-	</repositories>
-
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>unto.net</id>
-			<url>http://repository.unto.net/maven/</url>
-			<releases>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</releases>
-			<snapshots>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories> -->
+		<repositories> <repository> <id>repository.jboss.org </id>
+		<name>hibernate-search </name>
+		<url>http://repository.jboss.org/maven2/org/hibernate/hibernate-search
+		</url> </repository> <repository> <id>ftp.us.xemacs.org </id>
+		<name>aspectj/aspectjrt </name>
+		<url>http://repo2.maven.org/maven2/org/aspectj/aspectjrt/1.6.8/ </url>
+		</repository> <repository> <id>http://www.jarvana.com/jarvana/</id>
+		<name>http://www.jarvana.com/jarvana/</name>
+		<url>http://www.jarvana.com/jarvana/</url> </repository>
+		</repositories> <pluginRepositories> <pluginRepository>
+		<id>unto.net</id> <url>http://repository.unto.net/maven/</url>
+		<releases> <updatePolicy>daily</updatePolicy>
+		<checksumPolicy>warn</checksumPolicy> </releases> <snapshots>
+		<updatePolicy>daily</updatePolicy>
+		<checksumPolicy>warn</checksumPolicy> </snapshots> </pluginRepository>
+		</pluginRepositories>
+	-->
 </project>

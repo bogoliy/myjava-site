@@ -42,16 +42,16 @@
             
             
             $(document).ready(function(){
-                // готовим объект<br>
+                // РіРѕС‚РѕРІРёРј РѕР±СЉРµРєС‚<br>
                 var options = {
                     target: "#loginDiv",
                     url: "j_spring_security_check",
                     success: function(){
-                        alert("Спасибо за комментарий!");
+                        alert("РЎРїР°СЃРёР±Рѕ Р·Р° РєРѕРјРјРµРЅС‚Р°СЂРёР№!");
                     }
                 };
                 
-                // передаем опции в  ajaxSubmit
+                // РїРµСЂРµРґР°РµРј РѕРїС†РёРё РІ  ajaxSubmit
                 $("#loginForm").ajaxSubmit(options);
                 
             });
@@ -130,6 +130,11 @@
                     </li>
                 </ul>
                 #end
+                <br/>
+                <form method="post" action="[servlet path]" width="">
+   					$editor.get("DefaultEditor", "")
+   					<input type="submit" />
+				</form>
             </div>
             <div class="bottomContent">
                 Created by Bogoliy Sasha

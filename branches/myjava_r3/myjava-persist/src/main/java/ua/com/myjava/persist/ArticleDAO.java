@@ -39,7 +39,7 @@ public class ArticleDAO extends HibernateDaoSupport {
 	public void save(Article article) {
 		getHibernateTemplate().save(article);
 	}
- 
+  
 	public Article load(Integer id) { 
 
 		Article article = (Article) getHibernateTemplate().get(Article.class,

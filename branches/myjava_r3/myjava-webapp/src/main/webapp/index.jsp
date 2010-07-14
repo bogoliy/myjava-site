@@ -1,5 +1,6 @@
 <html>
-<body>
-<h2>Hello World!</h2>
-</body>
+<%
+String redirectURL = "articleList.htm";
+response.sendRedirect(redirectURL);
+%>
 </html>

@@ -1,6 +1,6 @@
 package ua.com.myjava.model;
 
-import java.util.Collection;
+import java.util.Collection;  
 
 import java.util.Date;
 
@@ -41,7 +41,7 @@ import ua.com.myjava.search.FileSystemArticleBridge;
 
 @javax.persistence.TableGenerator(name = "ART_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "ARTICLE")
 @Entity 
-@AnalyzerDefs( {
+@AnalyzerDefs( { 
 		@AnalyzerDef(name = "phonetic", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 				@TokenFilterDef(factory = StandardFilterFactory.class),
 				@TokenFilterDef(factory = StopFilterFactory.class,
