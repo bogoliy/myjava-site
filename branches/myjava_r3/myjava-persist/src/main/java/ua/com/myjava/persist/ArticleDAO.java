@@ -1,6 +1,7 @@
 package ua.com.myjava.persist;
 
 import java.io.File;
+
 import java.io.Reader;
 import java.io.StringReader;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.BooleanClause.Occur;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -41,13 +43,14 @@ public class ArticleDAO extends HibernateDaoSupport {
 	}
   
 	public Article load(Integer id) { 
-
 		Article article = (Article) getHibernateTemplate().get(Article.class,
 				id);
 
 		return article;
 	}
 
+
+	
 	@SuppressWarnings("unchecked")
 	public List<Article> getArticles() {
 		return (List<Article>) getHibernateTemplate().execute(

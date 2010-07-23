@@ -35,17 +35,6 @@
 		<servlet-name>myjava</servlet-name>
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
-		
-	<!-- Jetty not lock -->
-	<servlet>
-		<servlet-name>default</servlet-name>
-		<servlet-class>org.mortbay.jetty.servlet.DefaultServlet</servlet-class>
-		<init-param>
-			<param-name>useFileMappedBuffer</param-name>
-			<param-value>false</param-value>
-		</init-param>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
 
 	<!-- Language -->
 	<filter>
@@ -73,7 +62,7 @@
 	</servlet-mapping> 
 	
 	<!-- FCK Editor -->
-		<servlet>
+	<servlet>
 		<servlet-name>ConnectorServlet</servlet-name>
 		<servlet-class>
 			net.fckeditor.connector.ConnectorServlet
@@ -86,4 +75,45 @@
 		<!-- Do not wrap this line otherwise Glassfish will fail to load this file -->
 		<url-pattern>/fckeditor/editor/filemanager/connectors/*</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Rest -->
+    <!-- Scan for both @Provider and JAX-RS resource classes (@Path, @GET, @POST etc..) and register them -->
+    <context-param>
+       <param-name>resteasy.scan</param-name>
+       <param-value>false</param-value>
+    </context-param> 
+
+    <!-- set this if you map the Resteasy servlet to something other than -->
+    <context-param>
+       <param-name>resteasy.servlet.mapping.prefix</param-name>
+       <param-value>/rest</param-value>
+    </context-param>
+	
+	<context-param>
+       <param-name>org.jboss.resteasy.core</param-name>
+       <param-value>true</param-value>
+    </context-param> 
+    
+    <listener>
+        <listener-class>
+            org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+        </listener-class>
+    </listener> 
+
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>
+            org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+        </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+          <url-pattern>/rest/*</url-pattern> 
+    </servlet-mapping> 
+	
+	<context-param>
+     <param-name>javax.ws.rs.core.Application</param-name>
+     <param-value>ua.com.myjava.rest.RestApplication</param-value>
+  	</context-param>
 </web-app>

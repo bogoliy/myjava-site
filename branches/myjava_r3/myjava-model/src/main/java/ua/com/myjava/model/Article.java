@@ -2,6 +2,8 @@ package ua.com.myjava.model;
 
 import java.util.Collection;  
 
+
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,7 +40,8 @@ import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
 import ua.com.myjava.search.FileSystemArticleBridge;
-
+import com.thoughtworks.xstream.annotations.*;
+import com.thoughtworks.xstream.converters.basic.DateConverter;
 @javax.persistence.TableGenerator(name = "ART_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "ARTICLE")
 @Entity 
 @AnalyzerDefs( { 
@@ -60,6 +63,7 @@ import ua.com.myjava.search.FileSystemArticleBridge;
 		}) 
  
 })
+@XStreamAlias("article")
 @Analyzer(definition = "phonetic")
 @Indexed
 @BatchSize(size=100)
@@ -69,11 +73,12 @@ public class Article {
 	private int id;
 
 	private String title;
-
+	@XStreamOmitField
 	private String filename;
-
-	private Date date;
-
+    @XStreamAlias("date")
+	@XStreamConverter(ua.com.myjava.xstream.converter.MyJavaDateConverter.class)
+	private java.util.Date date;
+	
 	private String text;
 
 	@Column(name = "ar_text")
@@ -84,7 +89,7 @@ public class Article {
 	public void setText(String text) {
 		this.text = text;
 	}
-
+	@XStreamOmitField
 	private User user;
 
 	@Id
@@ -141,7 +146,8 @@ public class Article {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
+	@XStreamOmitField
 	private Collection<Opinion> opinions;
 
 	@CollectionOfElements

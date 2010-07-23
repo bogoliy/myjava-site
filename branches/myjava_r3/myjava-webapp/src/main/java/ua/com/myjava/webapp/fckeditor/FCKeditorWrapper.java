@@ -13,7 +13,7 @@ public class FCKeditorWrapper {
 
 	public String get(final String instanceName, final String value) {
 		FCKeditor editor = new FCKeditor(request, instanceName);
-		editor.setValue(value);
+		editor.setValue(value); 
 		return editor.createHtml();
 	}
 }
