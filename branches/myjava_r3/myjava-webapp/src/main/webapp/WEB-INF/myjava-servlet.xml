@@ -1,64 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	<!-- Define handlers -->
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="urlMap">
-			<map>
-				<entry key="/articleList.htm">
-					<ref bean="articleListController" />
-				</entry>
-				<entry key="/article.htm">
-					<ref bean="articleController" />
-				</entry>
-				<entry key="/rss.htm">
-					<ref bean="articleRssController" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <!-- Define handlers -->
+    <bean id="urlMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/articleList.htm">
+                    <ref bean="articleListController"/>
+                </entry>
+                <entry key="/article.htm">
+                    <ref bean="articleController"/>
+                </entry>
+                <entry key="/rss.htm">
+                    <ref bean="articleRssController"/>
+                </entry>
+                <entry key="/addArticle.htm">
+                    <ref bean="addArticleController"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
 
-	<bean id="velocityConfig"
-		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="/WEB-INF/vm/" />
-	</bean>
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+    </bean>
 
-	<bean id="beanNameResolver"
-		class="org.springframework.web.servlet.view.BeanNameViewResolver" />
-	<bean name="rss" class="ua.com.myjava.webapp.views.ArticleRssView" />
+    <bean id="beanNameResolver"
+          class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    <bean name="rss" class="ua.com.myjava.webapp.views.ArticleRssView"/>
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true" />
-		<property name="prefix" value="" />
-		<property name="suffix" value=".vm" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="contentType" value="text/html; charset=utf-8"></property>
-	</bean>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".vm"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="contentType" value="text/html; charset=utf-8"></property>
+    </bean>
 
-	<!-- Controllers -->
+    <!-- Controllers -->
 
-	<bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
-		<property name="articleDAO" ref="articleDAO" />
-	</bean>
+    <bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
+        <property name="articleDAO" ref="articleDAO"/>
+    </bean>
 
-	<bean id="articleController" class="ua.com.myjava.webapp.controllers.ArticleController">
-		<property name="articleDAO" ref="articleDAO" />
-		<property name="articleHelper" ref="articleHelper" />
-	</bean>
+    <bean id="articleController" class="ua.com.myjava.webapp.controllers.ArticleController">
+        <property name="articleDAO" ref="articleDAO"/>
+        <property name="articleHelper" ref="articleHelper"/>
+    </bean>
 
-	<bean id="articleRssController" class="ua.com.myjava.webapp.controllers.ArticleRssController">
-		<property name="articleDAO" ref="articleDAO" />
-	</bean>
-	
-	<!-- Load resources -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" >
-		<property name="basenames">
-			<list>
-				<value>myjava</value>
-			</list>
-		</property>
-	</bean>
+    <bean id="articleRssController" class="ua.com.myjava.webapp.controllers.ArticleRssController">
+        <property name="articleDAO" ref="articleDAO"/>
+    </bean>
+
+    <bean id="addArticleController" class="ua.com.myjava.webapp.controllers.AddArticleController">
+        <property name="articleDAO" ref="articleDAO"/>
+        <property name="articleHelper" ref="articleHelper"/>
+        <property name="sessionForm">
+            <value>true</value>
+        </property>
+        <property name="formView" value="/articleList"/>
+        <property name="successView" value="redirect:articleList.htm"/>
+        <property name="commandClass" value="ua.com.myjava.model.Article"/>
+    </bean>
+
+    <!-- Load resources -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>myjava</value>
+            </list>
+        </property>
+    </bean>
+    <!-- PlaceHolder -->
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:config.properties</value>
+        </property>
+    </bean>
+
+    <!-- DAO-->
+    <bean id="articleHelper" class="ua.com.myjava.article.ArticleHelper">
+        <property name="articlesPath">
+            <value>${articles.path}</value>
+        </property>
+    </bean>
 </beans>

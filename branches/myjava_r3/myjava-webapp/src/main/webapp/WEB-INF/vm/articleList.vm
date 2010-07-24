@@ -63,13 +63,13 @@
                 });
             });
             
-            $(document).ready(function(){
+          /*  $(document).ready(function(){
                 $("#submitArticle").colorbox({
                     width: "240px",
                     inline: true,
                     href: "#error"
                 });
-            });
+            });  */
         </script>
         <title>MyJava - my experience</title>
     </head>
@@ -145,7 +145,7 @@
             #end
             <br/>
             <div class="indent">
-                <form method="post" action="[servlet path]" width="">
+                <form method="post" action="addArticle.htm"">
                     $editor.get("DefaultEditor", "")<input id="submitArticle" type="submit" />
                 </form>
             </div>

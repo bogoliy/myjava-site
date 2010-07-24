@@ -7,7 +7,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:applicationContext-article.xml
 			classpath:applicationContext-persist.xml
 			classpath:applicationContext-service.xml
 		</param-value>

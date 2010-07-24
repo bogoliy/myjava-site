@@ -53,7 +53,7 @@ public class ArticleController implements Controller {
 		}
 			
 		
-		article.setText(articleHelper.getArticle(req.getRealPath(".") + "\\articles\\" + article.getFilename()));
+		article.setText(articleHelper.getArticle(article.getFilename()));
 		return new ModelAndView("article", "article", article);
 	}
 }
