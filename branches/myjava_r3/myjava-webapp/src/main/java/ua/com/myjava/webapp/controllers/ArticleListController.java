@@ -26,6 +26,8 @@ public class ArticleListController implements Controller {
         return articleDAO;
     }
 
+    
+
     public void setArticleDAO(ArticleDAO articleDAO) {
         this.articleDAO = articleDAO;
     }

@@ -1,15 +1,21 @@
 package ua.com.myjava.webapp.controllers;
 
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import ua.com.myjava.article.ArticleHelper;
 import ua.com.myjava.model.Article;
 import ua.com.myjava.persist.ArticleDAO;
+import ua.com.myjava.webapp.fckeditor.FCKeditorWrapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * User: abogoley
@@ -17,8 +23,38 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 15:51:26
  */
 public class AddArticleController extends SimpleFormController {
+    Logger log = Logger.getLogger(AddArticleController.class.toString());
     private ArticleDAO articleDAO;
     private ArticleHelper articleHelper;
+
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+        String searchString = request.getParameter("serachString");
+        String findAdditionalResults = request
+                .getParameter("additionalResults");
+
+        List<Article> articles = null;
+        log.info("Starting controller work with search string = "
+                + searchString);
+        if (searchString == null)
+            articles = articleDAO.getArticles();
+        else {
+            if (findAdditionalResults != null
+                    && findAdditionalResults.equals("true")) {
+                articles = articleDAO.getArticles(searchString);
+                log.info("Retreiving results with the same root");
+            } else {
+                articles = articleDAO.getArticles(searchString);
+                log.info("Executing search");
+            }
+
+        }
+
+        Map<String, Object> props = new HashMap<String, Object> ();
+        props.put("editor", new FCKeditorWrapper(request));
+        props.put("articles", articles);
+
+        return props;
+    }
 
     @Override
     protected ModelAndView onSubmit(
