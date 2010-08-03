@@ -5,19 +5,12 @@
 		<groupId>ua.com.myjava</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ua.com.myjava</groupId>
 	<artifactId>myjava-persist</artifactId>
 	<name>myjava-persist</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
-	
-	<properties>
-		<spring.version>3.0.3.RELEASE</spring.version>
-		<hibernate.version>3.3.2.GA</hibernate.version>
-	</properties>
-	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -25,96 +18,92 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>ua.com.myjava</groupId>
-			<artifactId>myjava-article</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		
 		<dependency>
 			<groupId>ua.com.myjava</groupId>
 			<artifactId>myjava-model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-				
-		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.5.ga</version>
+			<type>jar</type>
+			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
+			<version>3.3.0.ga</version>
+			<type>jar</type>
+			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
 			<version>3.3.0.ga</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+    			<exclusion>
+      				<groupId>org.slf4j</groupId>
+      				<artifactId>slf4j-api</artifactId>
+    			</exclusion>
+  			</exclusions>
 		</dependency>
-				
-		<!-- spring begin -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<artifactId>spring</artifactId>
+			<version>2.5.6</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
+			<groupId>ua.com.myjava</groupId>
+			<artifactId>myjava-article</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- spring aop -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		
-		<!-- optional datasource-->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-			
-		<!-- spring orm -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-					
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.8</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

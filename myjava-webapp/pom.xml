@@ -12,14 +12,34 @@
 	<name>myjava-webapp Maven Webapp</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
-
-	<properties>
-		<spring.version>3.0.3.RELEASE</spring.version>
-		<spring-security.version>3.0.3.RELEASE</spring-security.version>
-		<jetty.version>6.1.24</jetty.version>
-	</properties>
-
-
+	<repositories>
+		<repository>
+			<id>jakarta</id>
+			<url>http://jakarta.apache.org/commons/httpclient/</url>
+		</repository>
+		<repository>
+			<id>jboss</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>codehaus</id>
+			<url>http://repository.codehaus.org</url>
+		</repository>
+		<repository>
+			<id>oauth</id>
+			<url>http://oauth.googlecode.com/svn/code/maven</url>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>ibiblio mirror</id>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>ua.com.myjava</groupId>
@@ -27,68 +47,37 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>ua.com.myjava</groupId>
 			<artifactId>myjava-persist</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		
-		<!-- spring web -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core-tiger</artifactId>
+			<version>2.0.5.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
+			<artifactId>spring</artifactId>
+			<version>2.5.6</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- security begin -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-			
-		<!-- security end -->
-			
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.8</version>
-		</dependency>
-			
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.0.5</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>velocity</groupId>
 			<artifactId>velocity</artifactId>
@@ -96,45 +85,49 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
-			<version>1.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>0.9</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.8</version>
+		</dependency>
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils</artifactId>
 			<version>2.4</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
 			<version>2.0.8</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.0</version>
 		</dependency>
-		
 		<dependency>
-   			<groupId>org.hibernate</groupId>
-   			<artifactId>hibernate-search</artifactId>
-   			<version>3.1.1.GA</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>3.1.0.GA</version>
+			<type>jar</type>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-common</artifactId>
@@ -142,7 +135,6 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
@@ -150,60 +142,177 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-kernel</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-jaxws</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-codegen</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.axiom
+			</groupId>
+			<artifactId>axiom-api</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-local</artifactId>
+			<version>1.5.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.8</version>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+			<version>1.5.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.8</version>
+			<groupId>org.apache.ws.commons.axiom
+			</groupId>
+			<artifactId>axiom-impl</artifactId>
+			<version>1.2.8</version>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-			<version>2.9.0</version>
+			<groupId>org.apache.ws.commons.schema
+			</groupId>
+			<artifactId>XmlSchema</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.neethi</groupId>
+			<artifactId>neethi</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax-api</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-javamail_1.4_spec
+			</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-activation_1.1_spec
+			</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-tools</artifactId>
+			<version>2.1.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.xml.ws</groupId>
+					<artifactId>jaxws-rt</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-xjc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>ua.com.myjava</groupId>
+			<artifactId>myjava-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>2.5.6</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-snowball</artifactId>
-			<version>2.9.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>net.fckeditor</groupId>
+			<artifactId>java-core</artifactId>
+			<version>2.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
-		<!-- jetty -->
-			<dependency>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty</artifactId>
-				<version>${jetty.version}</version>
-				<scope>test</scope>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jsp-2.1-jetty</artifactId>
-				<version>${jetty.version}</version>
-				<scope>test</scope>
-			</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>1.1.GA</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-spring</artifactId>
+			<version>1.1.GA</version> 
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>async-http-servlet-3.0</artifactId>
+			<version>1.1.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>async-http-tomcat6</artifactId>
+			<version>1.1.GA</version>
+		</dependency>
+		<!--Axis 2 Dependencies -->
+		<!-- FCK Editor -->
+		<!-- REST -->
+		<!-- core library -->
+		<!-- Spring Integration -->
+		<!-- Asynchronous HTTP support with Servlet 3.0 (Jetty 7 pre5) -->
 
+		<!-- Asynchronous HTTP support with Tomcat 6 -->
 	</dependencies>
 
 	<build>
@@ -213,7 +322,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>${jetty.version}</version>
+				<version>6.1.21</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopKey>foo</stopKey>
@@ -271,6 +380,15 @@
 						<artifactId>mysql-connector-java</artifactId>
 						<version>5.0.5</version>
 					</dependency>
+
+
+					<!-- REST -->
+					<dependency>
+						<groupId>org.jboss.resteasy.examples</groupId>
+						<artifactId>examples-spring-hibernate-contacts-core</artifactId>
+						<version>${project.version}</version>
+						<scope>compile</scope>
+					</dependency>
 				</dependencies>
 			</plugin>
 			<plugin>
@@ -293,33 +411,22 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>hibernate-search</id>
-			<name>hibernate-search</name>
-			<url>http://repository.jboss.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>rome</id>
-			<name>rome</name>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>unto.net</id>
-			<url>http://repository.unto.net/maven/</url>
-			<releases>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</releases>
-			<snapshots>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
-
+	<!--
+		<repositories> <repository> <id>repository.jboss.org </id>
+		<name>hibernate-search </name>
+		<url>http://repository.jboss.org/maven2/org/hibernate/hibernate-search
+		</url> </repository> <repository> <id>ftp.us.xemacs.org </id>
+		<name>aspectj/aspectjrt </name>
+		<url>http://repo2.maven.org/maven2/org/aspectj/aspectjrt/1.6.8/ </url>
+		</repository> <repository> <id>http://www.jarvana.com/jarvana/</id>
+		<name>http://www.jarvana.com/jarvana/</name>
+		<url>http://www.jarvana.com/jarvana/</url> </repository>
+		</repositories> <pluginRepositories> <pluginRepository>
+		<id>unto.net</id> <url>http://repository.unto.net/maven/</url>
+		<releases> <updatePolicy>daily</updatePolicy>
+		<checksumPolicy>warn</checksumPolicy> </releases> <snapshots>
+		<updatePolicy>daily</updatePolicy>
+		<checksumPolicy>warn</checksumPolicy> </snapshots> </pluginRepository>
+		</pluginRepositories>
+	-->
 </project>

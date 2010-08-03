@@ -1,89 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<!-- Define handlers -->
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="urlMap">
-			<map>
-				<entry key="/articleList.x">
-					<ref bean="articleListController" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <!-- Define handlers -->
+    <bean id="urlMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/articleList.x">
+                    <ref bean="articleListController"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
 
-	<bean id="velocityConfig"
-		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="/WEB-INF/vm/" />
-	</bean>
-
-
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true" />
-		<property name="prefix" value="" />
-		<property name="suffix" value=".vm" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="contentType" value="text/html; charset=utf-8"></property>
-	</bean>
-
-	<!-- Controllers -->
-
-	<bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
-		<property name="articleDAO" ref="articleDAO" />
-	</bean>
-
-	<!-- Perstistance -->
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="annotatedClasses">
-			<list>
-				<value>ua.com.myjava.model.Article</value>
-				<value>ua.com.myjava.model.Opinion</value>
-				<value>ua.com.myjava.model.User</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory
-				</prop>
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.MySQLDialect
-				</prop>
-				<prop key="hibernate.connection.pool_size">0</prop>
-				<prop key="hibernate.connection.driver_class">
-					com.mysql.jdbc.Driver
-				</prop>
-				<prop key="hibernate.connection.url">
-					jdbc:mysql://localhost/myjava
-				</prop>
-
-				<prop key="hibernate.search.default.indexBase">
-					D:\Programming/myjava/myjava/indexes
-				</prop>
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+    </bean>
 
 
-				<prop key="hibernate.connection.username">myjava</prop>
-				<prop key="hibernate.connection.password">myjava</prop>
-				<prop key="hibernate.connection.autocommit">true</prop>
-				<prop key="hibernate.jdbc.batch_size">0</prop>
-			</props>
-		</property>
-	</bean>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".vm"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="contentType" value="text/html; charset=utf-8"></property>
+    </bean>
 
-	<bean id="articleDAO" class="ua.com.myjava.persist.ArticleDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+    <!-- Controllers -->
 
-	<bean id="searchEngine" class="ua.com.myjava.search.SearchEngine">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+    <bean id="articleListController" class="ua.com.myjava.webapp.controllers.ArticleListController">
+        <property name="articleDAO" ref="articleDAO"/>
+    </bean>
+
+    <!-- Perstistance -->
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="annotatedClasses">
+            <list>
+                <value>ua.com.myjava.model.Article</value>
+                <value>ua.com.myjava.model.Opinion</value>
+                <value>ua.com.myjava.model.User</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory
+                </prop>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.connection.pool_size">0</prop>
+                <prop key="hibernate.connection.driver_class">
+                    com.mysql.jdbc.Driver
+                </prop>
+                <prop key="hibernate.connection.url">
+                    jdbc:mysql://localhost/myjava
+                </prop>
+
+                <prop key="hibernate.search.default.indexBase">
+                    D:\Programming/myjava/myjava/indexes
+                </prop>
 
 
+                <prop key="hibernate.connection.username">myjava</prop>
+                <prop key="hibernate.connection.password">myjava</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="articleDAO" class="ua.com.myjava.persist.ArticleDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="searchEngine" class="ua.com.myjava.search.SearchEngine">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="articleService" class="ua.com.myjava.service.ArticleService"/>
+    <!-- PlaceHolder -->
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>/config.properties</value>
+        </property>
+    </bean>
 
 </beans>
