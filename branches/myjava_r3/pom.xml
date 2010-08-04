@@ -20,6 +20,6 @@
     <module>myjava-article</module>
     <module>myjava-persist</module>
     <module>myjava-webapp</module>
-    <module>myjava-service</module>
+    <module>myjava-rest</module>
   </modules>
 </project>
