@@ -24,21 +24,10 @@ import ua.com.myjava.persist.ArticleDAO;
 public class RestArticleService {
     private ArticleDAO articleDAO;
 
-    private ArticleDAO getArticleDAO() {
-        if (articleDAO == null) {
-            ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
-                    new String[]{"application-context.xml"});
-            BeanFactory factory = (BeanFactory) appContext;
-            articleDAO = (ArticleDAO) factory.getBean("articleDAO");
-        }
-        return articleDAO;
-    }
-
     @GET
     @Path("{id}")
     @Produces("application/xml")
     public StreamingOutput getArticle(@PathParam("id") int id) {
-        ArticleDAO articleDAO = getArticleDAO();
         final Article article = articleDAO.load(id);
         if (article == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -58,11 +47,13 @@ public class RestArticleService {
         };
     }
 
+    public void setArticleDAO(ArticleDAO articleDAO) {
+        this.articleDAO = articleDAO;
+    }
+
     @GET
     @Produces("application/xml")
     public StreamingOutput getArticles(@QueryParam("start") int start, @QueryParam("end") int end) {
-
-        ArticleDAO articleDAO = getArticleDAO();
         if (!(start > 0 && end > 0 && end > start)) {
             start = 0;
             end = 0;
