@@ -1,0 +1,11 @@
+<serviceGroup>
+	<service name="ArticleService"
+             targetNamespace="http://myjava.com.ua/services">
+        <description>Myjava Article Service</description>
+        <schema schemaNamespace="http://ws.apache.org/axis2/samples/book/xsd/"/>
+        <parameter name="ServiceClass" locked="false">ua.com.myjava.service.ArticleService</parameter>
+        <operation name="getRecentArticles">
+        	<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+        </operation>
+	</service>
+</serviceGroup>
