@@ -30,7 +30,7 @@
 				</prop>
 
 				<prop key="hibernate.search.default.indexBase">
-					D:\Programming/myjava/myjava/indexes
+					${indexes.path}
 				</prop>
 
 
