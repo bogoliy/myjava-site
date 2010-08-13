@@ -1,0 +1,231 @@
+/*
+ Обнулить отсутпы страницы и содержимого
+ */
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: gray;
+}
+
+/*
+ главное содердиммое - отсупы справа и слева
+ */
+.content {
+    width: 900px;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid 1px rgb(150, 150, 150);
+    font-size: 1.0em;
+    background-color: white;
+}
+
+.topContent {
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+    height: 80px;
+    border-bottom: solid;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    margin-top: 10px;
+}
+
+.rightPanel {
+    float: right;
+}
+
+/*
+ Menu
+ */
+.menu {
+    padding-right: 5px;
+    position: relative;
+    top: -10px;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0px 20px;
+}
+
+.menu ul li {
+    list-style: none;
+    margin-left: 5px;
+    display: inline;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+}
+
+.menu ul li a:hover {
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: #9c9d9d;
+}
+
+.mainContent {
+    margin-top: 20px;
+}
+
+.bottomContent {
+    height: 20px;
+    border-top: solid;
+    border-top-color: black;
+    border-top-width: 2px;
+    padding-top: 3px;
+    font-family: Verdana, serif;
+    text-align: center;
+    font-size: x-small;
+    color: grey;
+}
+
+.article {
+    margin: 0 20px 0 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    color: #4F4939;
+    padding-bottom: 20px;
+}
+
+.article h1 {
+    font-weight: normal;
+    font-size: 36px;
+    margin: 0 25px 0 25px;
+    letter-spacing: -1px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.opinions {
+    margin: 0 20px 0 20px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 12px;
+    color: #4F4939;
+    padding-bottom: 5px;
+}
+
+.opinions div:nth-child(odd) {
+	background-color: #f3f3f3;
+}
+
+.opinions div:nth-child(even) {
+	background-color: #f4f4f4;
+}
+
+.opinion {
+    padding-left: 5px;	
+	border-left-color: #f0f0f0;
+	border-left-width: 2px;
+	border-left: solid;
+}
+
+.opinion h1{
+  	font-weight: normal;
+    font-size: 12px;
+    font-family: "Arial", serif;
+	font-style: oblique;
+	cursor: pointer;
+}
+
+.collapsed {
+	color: #8d8f91;
+}
+
+.opinionForm {
+	margin: 0 20px 0 20px;
+	font-size: 100%;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+}
+
+
+.label {
+	font-size: 12px;
+	color: black;
+	font: bold 100% sans-serif;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+    color: #4F4939;
+}
+
+.submit {
+	background: #FFFFFF none repeat scroll 0 0;
+	border: 1px solid gray;
+	color: grey;
+}
+
+.input {
+	border: 1px solid gray;
+	background-repeat: no-repeat;
+}
+
+
+.articleListTitle {
+	margin: 0 20px 0 20px;
+	padding : 3px;
+	font-size: 120%;
+	border-bottom: 1px dotted #CCCCCC;
+}
+
+
+a:link, a:visited {
+	color:#4B4BC2;
+	text-decoration:none;
+}
+
+a:hover {
+	color:#CC0000;
+}
+
+.searchPanel {
+	position: relative;
+    padding-right: 5px;
+	padding: 0px 20px;
+	top: -5px;
+}
+.bordered {
+	border: 1px solid grey;
+	cursor: pointer;
+}
+.notBordered {
+	border: 1px solid white;
+	cursor: default;
+}
+
+
+.login {
+	margin-left: 20px;
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 100%;
+}
+
+.login_panel form{
+	border: 1px;
+	text-align: left;
+	float: left;
+}
+
+
+.login_panel a {
+    text-decoration: underline;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.login_panel a:hover {
+    text-decoration: underline;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 70%;
+    color: black;
+	#d4d0c8cursor: pointer;
+}
