@@ -13,12 +13,10 @@ import ua.com.myjava.model.Article;
  */
 public class AddArticleValidator implements Validator {
 
-    @Override
     public boolean supports(Class clazz) {
         return clazz.equals(Article.class);
     }
 
-    @Override
     public void validate(Object target, Errors errors) {
         Article article = (Article) target;
         ValidationUtils.rejectIfEmpty(errors, "title", "addArticle.errors.titleEmpty");

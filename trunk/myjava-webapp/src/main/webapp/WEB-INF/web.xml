@@ -11,6 +11,13 @@
         </param-value>
     </context-param>
 
+    <context-param>
+        <description>
+            WebFlow context configuration
+        </description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/myjava-servlet.xml</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>myjava</servlet-name>
@@ -88,4 +95,26 @@
         <param-name>javax.ws.rs.core.Application</param-name>
         <param-value>ua.com.myjava.rest.RestApplication</param-value>
     </context-param>
+
+    <listener>
+        <listener-class>
+            org.jboss.resteasy.plugins.spring.SpringContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <!-- Apache CXF-->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <display-name>CXF Servlet</display-name>
+        <servlet-class>
+            org.apache.cxf.transport.servlet.CXFServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>

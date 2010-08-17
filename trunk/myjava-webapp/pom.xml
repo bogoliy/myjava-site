@@ -14,6 +14,7 @@
     <url>http://maven.apache.org</url>
     <properties>
         <org.springframework.version>3.0.3.RELEASE</org.springframework.version>
+        <cxf.version>2.1.1</cxf.version>
     </properties>
 
     <repositories>
@@ -62,7 +63,27 @@
             <name>silvermindsoftware.</name>
             <url>http://m2.silvermindsoftware.com/repo/</url>
         </repository>
-
+        <repository>
+            <id>java.net1</id>
+            <name>java.net Maven Repository</name>
+            <url>http://download.java.net/maven/1/</url>
+            <layout>legacy</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>apache.incubating.releases</id>
+            <name>Apache Incubating Release Distribution Repository</name>
+            <url>http://people.apache.org/repo/m2-incubating-repository</url>
+        </repository>
+        <repository>
+            <id>java.net2</id>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
     </repositories>
     <dependencies>
 
@@ -443,10 +464,76 @@
         </dependency>
         <!-- Flex Json -->
         <dependency>
-             <groupId>flexjson</groupId>
+            <groupId>flexjson</groupId>
             <artifactId>flexjson</artifactId>
             <version>1.6</version>
         </dependency>
+
+        <!-- These are the Apache cxf dependencies-->
+
+
+
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-core</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-simple</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-databinding-aegis</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-local</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-jms</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-management</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-common-utilities</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

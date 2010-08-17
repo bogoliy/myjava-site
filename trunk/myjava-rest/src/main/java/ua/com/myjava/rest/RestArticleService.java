@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.thoughtworks.xstream.XStream;
@@ -22,12 +23,15 @@ import ua.com.myjava.persist.ArticleDAO;
 
 @Path("/articles")
 public class RestArticleService {
+    @Autowired
     private ArticleDAO articleDAO;
 
     @GET
     @Path("{id}")
     @Produces("application/xml")
     public StreamingOutput getArticle(@PathParam("id") int id) {
+        
+
         final Article article = articleDAO.load(id);
         if (article == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
