@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
@@ -62,23 +66,29 @@ import com.thoughtworks.xstream.annotations.*;
         })
 
 })
+
+//JAXB
+@XmlAccessorType(XmlAccessType.NONE)
+@XmlRootElement
+
 @XStreamAlias("article")
 @Analyzer(definition = "phonetic")
 @Indexed
 @BatchSize(size = 100)
 @Table(name = "article", schema = "myjava")
 public class Article {
-
+    @XmlElement
     private int id;
-
+    @XmlElement
     private String title;
+    @XmlElement
+    private String text;
+
     @XStreamOmitField
     private String filename;
     @XStreamAlias("date")
     @XStreamConverter(ua.com.myjava.xstream.converter.MyJavaDateConverter.class)
     private java.util.Date date;
-
-    private String text;
 
     @Column(name = "ar_text")
     public String getText() {
@@ -89,8 +99,8 @@ public class Article {
         this.text = text;
     }
 
-    @XStreamOmitField
-    private User user;
+    /*@XStreamOmitField
+    private User user;*/
 
     @Id
     @Column(name = "ar_id")
@@ -128,6 +138,7 @@ public class Article {
         this.filename = filename;
     }
 
+    @XmlElement
     @Column(name = "ar_date")
     public Date getDate() {
         return date;
@@ -137,7 +148,7 @@ public class Article {
         this.date = date;
     }
 
-    @ManyToOne
+    /*  @ManyToOne
     @JoinColumn(name = "us_id")
     public User getUser() {
         return user;
@@ -145,7 +156,7 @@ public class Article {
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     /*@XStreamOmitField
         private Collection<Comment> comments;

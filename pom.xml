@@ -21,5 +21,6 @@
     <module>myjava-persist</module>
     <module>myjava-webapp</module>
     <module>myjava-rest</module>
+      <module>myjava-service</module>
   </modules>
 </project>

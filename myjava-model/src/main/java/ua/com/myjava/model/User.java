@@ -8,25 +8,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.search.annotations.Field;
-
+@XmlAccessorType(XmlAccessType.NONE)
 @javax.persistence.TableGenerator(name = "USER_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "USER")
 @Entity
 @Embeddable
 @Table(name="user", schema="myjava")
 public class User {
  
-	public int id;
- 
-	public String name;      
+	private int id;
 
+	private String name;
 
-	public String login;
+	private String login;
 
-	public String password;
+	private String password;
 
-	@Id    
+	@Id
 	@Column(name = "us_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "USER_GEN")
 	public int getId() {
@@ -36,7 +38,7 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@Column(name = "us_name")
 	@Field
 	public String getName() {
