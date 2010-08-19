@@ -4,8 +4,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+
     <import resource="classpath:applicationContext-persist.xml"/>
     <import resource="classpath:applicationContext-rest.xml"/>
+    <import resource="classpath:applicationContext-service.xml"/>
     <context:annotation-config/>
     <context:component-scan base-package="ua.com.myjava.rest"/>
     <!-- Define handlers -->

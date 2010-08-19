@@ -3,12 +3,14 @@ package ua.com.myjava.service;
 import ua.com.myjava.model.Article;
 import ua.com.myjava.persist.ArticleDAO;
 
+import javax.jws.WebService;
 import java.util.Date;
 
 /**
  * User: abogoley
  * Date: 17.08.2010
  */
+@WebService(endpointInterface = "ua.com.myjava.service.ArticleService")
 public class ArticleServiceImpl implements ArticleService {
     private ArticleDAO articleDAO;
 
