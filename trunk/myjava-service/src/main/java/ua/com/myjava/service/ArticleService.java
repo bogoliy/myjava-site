@@ -12,5 +12,5 @@ import javax.jws.WebService;
  */
 @WebService
 public interface ArticleService {
-    public int addArticle(@WebParam(name = "article") Article article) throws ArticleException;
+    public int addArticle(Article article) throws ArticleException;
 }
