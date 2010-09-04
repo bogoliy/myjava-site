@@ -16,7 +16,9 @@
             WebFlow context configuration
         </description>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/myjava-servlet.xml</param-value>
+        <param-value>
+            classpath:activemq-config.xml
+            /WEB-INF/myjava-servlet.xml</param-value>
     </context-param>
 
     <servlet>

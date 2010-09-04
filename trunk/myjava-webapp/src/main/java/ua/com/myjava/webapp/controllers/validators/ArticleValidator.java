@@ -1,19 +1,15 @@
 package ua.com.myjava.webapp.controllers.validators;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ua.com.myjava.model.Article;
-import ua.com.myjava.model.Comment;
 
 /**
- * User: root
- * Date: 25.07.2010
- * Time: 15:45:13
+ * User: abogoley
+ * Date: 09.08.2010
  */
-public class AddArticleValidator implements Validator {
-
+public class ArticleValidator implements Validator {
     @Override
     public boolean supports(Class clazz) {
         return clazz.equals(Article.class);
@@ -21,7 +17,8 @@ public class AddArticleValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Comment comment = (Comment) target;
-
+        Article article = (Article) target;
+        ValidationUtils.rejectIfEmpty(errors, "title", "addArticle.errors.titleEmpty");
+        ValidationUtils.rejectIfEmpty(errors, "text", "addArticle.errors.articleEmpty");
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import ua.com.myjava.article.ArticleHelper;
 import ua.com.myjava.model.Article;
 import ua.com.myjava.persist.ArticleDAO;
+import ua.com.myjava.service.ArticleService;
 import ua.com.myjava.webapp.fckeditor.FCKeditorWrapper;
 
 import javax.servlet.ServletException;
@@ -26,8 +27,9 @@ public class AddArticleController extends SimpleFormController {
     Logger log = Logger.getLogger(AddArticleController.class.toString());
     private ArticleDAO articleDAO;
     private ArticleHelper articleHelper;
+    private ArticleService articleServiceClient;
 
-	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+    protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
         String searchString = request.getParameter("serachString");
         String findAdditionalResults = request
                 .getParameter("additionalResults");
@@ -49,7 +51,7 @@ public class AddArticleController extends SimpleFormController {
 
         }
 
-        Map<String, Object> props = new HashMap<String, Object> ();
+        Map<String, Object> props = new HashMap<String, Object>();
         props.put("editor", new FCKeditorWrapper(request));
         props.put("articles", articles);
 
@@ -61,11 +63,7 @@ public class AddArticleController extends SimpleFormController {
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
         Article article = (Article) command;
-        String fileName = System.currentTimeMillis() + ".htm";
-        article.setFilename(fileName);
-        articleHelper.saveInFileSystem(article);
-        articleDAO.save(article);
-
+        articleServiceClient.addArticle(article);
         // default behavior: render success view
         if (getSuccessView() == null) {
             throw new ServletException("successView isn't set");
@@ -81,5 +79,9 @@ public class AddArticleController extends SimpleFormController {
 
     public void setArticleHelper(ArticleHelper articleHelper) {
         this.articleHelper = articleHelper;
+    }
+
+    public void setArticleServiceClient(ArticleService articleServiceClient) {
+        this.articleServiceClient = articleServiceClient;
     }
 }

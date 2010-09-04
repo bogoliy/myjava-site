@@ -1,5 +1,6 @@
 package ua.com.myjava.service;
 
+import ua.com.myjava.article.ArticleHelper;
 import ua.com.myjava.model.Article;
 import ua.com.myjava.persist.ArticleDAO;
 
@@ -13,18 +14,26 @@ import java.util.Date;
 @WebService(endpointInterface = "ua.com.myjava.service.ArticleService")
 public class ArticleServiceImpl implements ArticleService {
     private ArticleDAO articleDAO;
+    private ArticleHelper articleHelper;
 
-    public int addArticle(Article article) throws ArticleException {
+    public void addArticle(Article article) {
         article.setDate(new Date());
-        try {
+        String fileName = System.currentTimeMillis() + ".htm";
+        article.setFilename(fileName);
+
+      /*  try {*/
+            articleHelper.saveInFileSystem(article);
             articleDAO.save(article);
-        } catch (Exception e) {
+       /* } catch (Exception e) {
             throw new ArticleException("Cannot store article");
-        }
-        return article.getId();
+        }*/
     }
 
     public void setArticleDAO(ArticleDAO articleDAO) {
         this.articleDAO = articleDAO;
+    }
+
+    public void setArticleHelper(ArticleHelper articleHelper) {
+        this.articleHelper = articleHelper;
     }
 }

@@ -1,23 +1,16 @@
 package ua.com.myjava.webapp.views;
 
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.SyndFeedOutput;
+import org.springframework.web.servlet.view.AbstractView;
+import ua.com.myjava.model.Article;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.servlet.view.AbstractView;
-
-import ua.com.myjava.model.Article;
-
-import com.sun.syndication.feed.synd.SyndContent;
-import com.sun.syndication.feed.synd.SyndContentImpl;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndEntryImpl;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndFeedImpl;
-import com.sun.syndication.io.SyndFeedOutput;
 
 public class ArticleRssView extends AbstractView {
 	/**
@@ -79,7 +72,6 @@ public class ArticleRssView extends AbstractView {
 	/**
 	 * Creates an entry from the provided data
 	 * @param article
-	 * @param link
 	 * @return the new create entry
 	 */
 	private SyndEntry buildEntry (Article article, String contextPath) {

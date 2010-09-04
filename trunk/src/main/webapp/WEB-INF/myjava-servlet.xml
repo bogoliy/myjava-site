@@ -70,7 +70,7 @@
         <property name="successView" value="redirect:articleList.htm"/>
         <property name="commandClass" value="ua.com.myjava.model.Article"/>
         <property name="validator">
-            <bean class="ua.com.myjava.webapp.controllers.validators.AddArticleValidator"/>
+            <bean class="ua.com.myjava.webapp.controllers.validators.CommentValidator"/>
         </property>
     </bean>
 

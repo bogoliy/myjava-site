@@ -1,49 +1,17 @@
 package ua.com.myjava.model;
 
-import java.util.Collection;
-
-
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.apache.solr.analysis.NGramFilterFactory;
-import org.apache.solr.analysis.SnowballPorterFilterFactory;
-import org.apache.solr.analysis.StandardFilterFactory;
-import org.apache.solr.analysis.StandardTokenizerFactory;
-import org.apache.solr.analysis.StopFilterFactory;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.apache.solr.analysis.*;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.CollectionOfElements;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.AnalyzerDef;
-import org.hibernate.search.annotations.AnalyzerDefs;
-import org.hibernate.search.annotations.Boost;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.FieldBridge;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Parameter;
-import org.hibernate.search.annotations.Store;
-import org.hibernate.search.annotations.TokenFilterDef;
-import org.hibernate.search.annotations.TokenizerDef;
-
+import org.hibernate.search.annotations.*;
 import ua.com.myjava.search.FileSystemArticleBridge;
-import com.thoughtworks.xstream.annotations.*;
+
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.Date;
 
 @javax.persistence.TableGenerator(name = "ART_GEN", table = "GENERATOR_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_VALUE", pkColumnValue = "ARTICLE")
 @Entity
@@ -66,26 +34,23 @@ import com.thoughtworks.xstream.annotations.*;
         })
 
 })
-
-//JAXB
-@XmlAccessorType(XmlAccessType.NONE)
-@XmlRootElement
-
 @XStreamAlias("article")
 @Analyzer(definition = "phonetic")
+
 @Indexed
 @BatchSize(size = 100)
 @Table(name = "article", schema = "myjava")
 public class Article {
-    @XmlElement
+
     private int id;
-    @XmlElement
+
     private String title;
-    @XmlElement
+
     private String text;
 
     @XStreamOmitField
     private String filename;
+
     @XStreamAlias("date")
     @XStreamConverter(ua.com.myjava.xstream.converter.MyJavaDateConverter.class)
     private java.util.Date date;
@@ -172,4 +137,19 @@ public class Article {
             this.comments = comments;
         }
     */
+
+
+    private static class Adapter extends XmlAdapter<String, String> {
+
+        @Override
+        public String marshal(String v) throws Exception {
+            return "<![CDATA[" + v + "]]>";
+        }
+
+        @Override
+        public String unmarshal(String v) throws Exception {
+            return v;
+        }
+
+    }
 }
