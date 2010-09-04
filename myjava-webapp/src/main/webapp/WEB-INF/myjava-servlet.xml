@@ -5,14 +5,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-
-
+    <!-- AcriveMQ Broker configuration-->
+  <!--  <import resource="classpath:activemq-config.xml"/>
+-->
     <import resource="classpath:applicationContext-persist.xml"/>
     <import resource="classpath:applicationContext-rest.xml"/>
     <import resource="classpath:applicationContext-service.xml"/>
+
     <context:annotation-config/>
     <context:component-scan base-package="ua.com.myjava.rest"/>
     <!-- Define handlers -->
@@ -83,6 +82,7 @@
     <bean id="addArticleController" class="ua.com.myjava.webapp.controllers.AddArticleController">
         <property name="articleDAO" ref="articleDAO"/>
         <property name="articleHelper" ref="articleHelper"/>
+        <property name="articleServiceClient" ref="articleClient"/>
         <property name="sessionForm">
             <value>true</value>
         </property>
@@ -90,7 +90,7 @@
         <property name="successView" value="redirect:articleList.htm"/>
         <property name="commandClass" value="ua.com.myjava.model.Article"/>
         <property name="validator">
-            <bean class="ua.com.myjava.webapp.controllers.validators.AddArticleValidator"/>
+            <bean class="ua.com.myjava.webapp.controllers.validators.ArticleValidator"/>
         </property>
     </bean>
 

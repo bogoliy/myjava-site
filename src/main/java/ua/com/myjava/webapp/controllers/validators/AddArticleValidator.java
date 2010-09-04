@@ -21,6 +21,5 @@ public class AddArticleValidator implements Validator {
         Article article = (Article) target;
         ValidationUtils.rejectIfEmpty(errors, "title", "addArticle.errors.titleEmpty");
         ValidationUtils.rejectIfEmpty(errors, "text", "addArticle.errors.articleEmpty");
-
     }
 }

@@ -1,6 +1,4 @@
-import java.util.List;
-
-import org.junit.Assert;
+import junit.framework.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -9,10 +7,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.unitils.UnitilsJUnit4;
 import org.unitils.spring.annotation.SpringApplicationContext;
 import org.unitils.spring.annotation.SpringBeanByName;
-
 import ua.com.myjava.model.Article;
 import ua.com.myjava.search.SearchEngine;
 import ua.com.myjava.webapp.controllers.ArticleListController;
+
+import java.util.List;
 
 @SpringApplicationContext( { "application-context.xml" })
 public class ArticleListControllerTest extends UnitilsJUnit4 {
@@ -31,7 +30,7 @@ public class ArticleListControllerTest extends UnitilsJUnit4 {
 			searchEngine.updateIndex();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			junit.framework.Assert.fail();
 		}
 		Assert.assertTrue(true);
 	}
