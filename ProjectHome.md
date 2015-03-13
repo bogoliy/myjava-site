@@ -1,0 +1,1 @@
+We are going to learn new Java technologies.
